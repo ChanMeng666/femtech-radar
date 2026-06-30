@@ -46,13 +46,13 @@ Fetch, deduplicate, and score FemTech items for a given section and time window.
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `section` | `string` | Yes | One of `"industry"`, `"research"`, `"opportunities"`, `"discussions"` |
+| `section` | `string` | Yes | One of `"industry"`, `"research"`, `"opportunities"`, `"discussions"`. In v1 only `industry` and `research` have adapters; `opportunities` and `discussions` are valid values but return empty results with a "no adapter" warning until a later version. |
 | `since`   | `string` | No | ISO 8601 date string. Defaults to 7 days ago. |
 | `limit`   | `number` | No | Maximum items to return. Defaults to `15`. |
 
 **Returns:** `{ items: RadarItem[], warnings: string[] }`
 
-Each `RadarItem` has: `id`, `section`, `title`, `url`, `source`, `summary`, `score` (0–100), `published_at`, and optional `raw_metrics` (`points`, `comments`, `citations`).
+Each `RadarItem` has: `id`, `section`, `title`, `url`, `source`, `summary`, `score` (0–100), `published_at`. The `raw_metrics` field (`points`, `comments`, `citations`) is defined in the schema but is **not populated in v1** — `popularity` is always 0 and `raw_metrics` is omitted from returned items.
 
 **Example prompt:**
 
@@ -76,8 +76,8 @@ No parameters required.
 
 | Section | Sources |
 |---------|---------|
-| `industry` | Hacker News (Algolia), NewsAPI |
-| `research` | arXiv (cs.AI, q-bio) |
+| `industry` | Google News (RSS search) |
+| `research` | arXiv API (femtech / women's-health / maternal query) |
 
 ## License
 

@@ -46,3 +46,12 @@ test("dedupe keeps items whose titles are below the similarity threshold", () =>
   ]);
   expect(out).toHaveLength(2);
 });
+
+test("canonicalUrl returns the input unchanged for a malformed url", () => {
+  expect(canonicalUrl("not a url")).toBe("not a url");
+});
+
+test("dedupe does not throw when an item has a malformed url", () => {
+  const out = dedupe([mk({ url: "undefined" })]);
+  expect(out).toHaveLength(1);
+});

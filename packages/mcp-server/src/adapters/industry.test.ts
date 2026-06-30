@@ -24,11 +24,10 @@ test("industry adapter parses Google News RSS into a scored RadarItem", async ()
   expect(items[0].score).toBeGreaterThan(0);
 });
 
-test("industry adapter returns [] when fetcher throws", async () => {
-  const items = await industryAdapter.collect({
+test("industry adapter rejects when fetcher throws", async () => {
+  await expect(industryAdapter.collect({
     since: new Date("2026-06-01T00:00:00Z"), limit: 10,
     now: new Date("2026-06-30T00:00:00Z"),
     fetcher: async () => { throw new Error("network"); },
-  });
-  expect(items).toEqual([]);
+  })).rejects.toThrow();
 });

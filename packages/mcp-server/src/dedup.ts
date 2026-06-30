@@ -1,7 +1,8 @@
 import type { RadarItem } from "./schema.js";
 
 export function canonicalUrl(url: string): string {
-  const u = new URL(url);
+  let u: URL;
+  try { u = new URL(url); } catch { return url; }
   u.hostname = u.hostname.toLowerCase();
   u.hash = "";
   for (const k of [...u.searchParams.keys()]) {

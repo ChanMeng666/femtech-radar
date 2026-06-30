@@ -37,6 +37,12 @@ export async function collect(args: {
   } catch (err) {
     warnings.push(`${args.section} adapter failed: ${(err as Error).message}`);
   }
-  const items = dedupe(raw).sort((a, b) => b.score - a.score).slice(0, args.limit);
+  const deduped = dedupe(raw).sort((a, b) => b.score - a.score);
+  const sinceMs = args.since.getTime();
+  const within = deduped.filter((i) => {
+    const t = new Date(i.published_at).getTime();
+    return Number.isNaN(t) || t >= sinceMs;
+  });
+  const items = within.slice(0, args.limit);
   return { items, warnings };
 }

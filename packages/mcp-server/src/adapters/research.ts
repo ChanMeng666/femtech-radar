@@ -17,23 +17,19 @@ export const researchAdapter: Adapter = {
   async collect({ limit, now, fetcher, keywords }: CollectOpts): Promise<RadarItem[]> {
     const q = encodeURIComponent('all:femtech OR all:"women\'s health" OR all:maternal');
     const url = `${ARXIV}?search_query=${q}&sortBy=submittedDate&sortOrder=descending&max_results=${limit}`;
-    try {
-      const xml = await fetcher(url);
-      const feed = parser.parse(xml)?.feed;
-      const entries = feed?.entry ? (Array.isArray(feed.entry) ? feed.entry : [feed.entry]) : [];
-      return entries.map((e: Record<string, string>): RadarItem => {
-        const itemUrl = String(e.id);
-        const title = String(e.title).trim();
-        const summary = String(e.summary ?? "").trim();
-        const published_at = String(e.published);
-        return {
-          id: hashId(itemUrl), section: "research", title, url: itemUrl,
-          source: "arXiv", summary, published_at,
-          score: scoreItem({ title, summary, popularity: 0, published_at, now, keywords }),
-        };
-      });
-    } catch {
-      return [];
-    }
+    const xml = await fetcher(url);
+    const feed = parser.parse(xml)?.feed;
+    const entries = feed?.entry ? (Array.isArray(feed.entry) ? feed.entry : [feed.entry]) : [];
+    return entries.map((e: Record<string, string>): RadarItem => {
+      const itemUrl = String(e.id);
+      const title = String(e.title).trim();
+      const summary = String(e.summary ?? "").trim();
+      const published_at = String(e.published);
+      return {
+        id: hashId(itemUrl), section: "research", title, url: itemUrl,
+        source: "arXiv", summary, published_at,
+        score: scoreItem({ title, summary, popularity: 0, published_at, now, keywords }),
+      };
+    });
   },
 };
