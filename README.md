@@ -83,7 +83,8 @@ It's built for **FemTech / women-in-tech practitioners** who want signal without
 - **MCP:** [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol) (stdio server)
 - **Parsing / validation:** [Zod](https://zod.dev) (schema & runtime validation) · [fast-xml-parser](https://github.com/NaturalIntelligence/fast-xml-parser) (Atom/RSS)
 - **Tooling:** pnpm workspaces (monorepo) · [Vitest](https://vitest.dev) (tests) · [tsup](https://tsup.egoist.dev) (build)
-- **Roadmap layers:** GitHub Agentic Workflows (`gh aw`) orchestration · Astro + RSS site on GitHub Pages
+- **Site:** [Astro 5](https://astro.build) (`femtech-radar-site`) · GitHub Pages deploy via `deploy-pages.yml`
+- **Roadmap:** GitHub Agentic Workflows (`gh aw`) orchestration
 
 ## 🏗️ Architecture
 
@@ -139,7 +140,7 @@ This is the first of three planned layers (see [`docs/superpowers/specs`](docs/s
 
 - ✅ **v1 — MCP server** *(this release)*: industry (Google News) + research (arXiv) adapters, dedupe/score pipeline, `radar_collect` / `radar_sources` tools, resilient error handling, 28 tests.
 - ⏳ **v2 — orchestration**: opportunities + discussions adapters, publish to npm, a weekly `gh aw` workflow that curates a digest, ChatOps slash commands.
-- ⏳ **v3 — publishing**: an Astro + RSS site auto-deployed to GitHub Pages from the weekly data.
+- ✅ **v3 — publishing**: Astro 5 site auto-deployed to GitHub Pages at `https://chanmeng666.github.io/femtech-radar/`; subscribable RSS at `/rss.xml`.
 
 ## 📖 Usage Guide
 
@@ -151,6 +152,8 @@ femtech-radar is consumed as an **MCP server**. It exposes two tools:
 | `radar_sources` | _none_ | the configured source list per section |
 
 > In v1 only `industry` and `research` have adapters; `opportunities` and `discussions` return an empty list with a `"no adapter for …"` warning.
+
+**Subscribe via RSS:** the weekly digest is published at [`https://chanmeng666.github.io/femtech-radar/rss.xml`](https://chanmeng666.github.io/femtech-radar/rss.xml) and works in any feed reader.
 
 ### Use with GitHub Agentic Workflows (`gh aw`)
 
@@ -236,7 +239,7 @@ This project is released under the [MIT](LICENSE) license.
 </div>
 
 <!-- Link definitions -->
-[demo-link]: #-usage-guide
+[demo-link]: https://chanmeng666.github.io/femtech-radar/
 [docs-link]: ./packages/mcp-server/README.md
 
 ---
