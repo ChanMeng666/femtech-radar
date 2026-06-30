@@ -1,6 +1,9 @@
 {
   "name": "@chanmeng666/femtech-radar-mcp",
   "version": "0.1.0",
+  "description": "MCP server that fetches, dedupes, and scores FemTech industry & research items.",
+  "keywords": ["mcp", "femtech", "model-context-protocol", "arxiv", "news"],
+  "repository": { "type": "git", "url": "https://github.com/ChanMeng666/femtech-radar" },
   "type": "module",
   "license": "MIT",
   "bin": { "femtech-radar-mcp": "dist/index.js" },
