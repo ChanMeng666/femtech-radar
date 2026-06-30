@@ -1,24 +1,43 @@
 # femtech-radar
 
-> Agent-first FemTech intelligence: an MCP server that fetches, dedupes, and scores women's-health & FemTech research and industry news, designed to feed GitHub Agentic Workflows and an auto-updating Astro + RSS site.
+> Agent-first FemTech intelligence: a live three-unit pipeline (MCP server → weekly GitHub Agentic
+> Workflow → Astro + RSS site) that fetches, dedupes, and scores women's-health & FemTech research and
+> industry news into a curated, subscribable weekly digest, built on GitHub-native primitives.
 
 This file follows the [llms.txt](https://llmstxt.org/) convention: a concise, machine-readable map
 of the project for large language models and AI agents.
 
 ## About
 
-- Repository: https://github.com/ChanMeng666/femtech-radar
-- Primary stack: Node.js / JavaScript
+- Repository: https://github.com/ChanMeng666/femtech-radar (public)
+- Live site: https://chanmeng666.github.io/femtech-radar/
+- RSS feed: https://chanmeng666.github.io/femtech-radar/rss.xml
+- npm package: https://www.npmjs.com/package/@chanmeng666/femtech-radar-mcp (v0.1.0)
+- Primary stack: TypeScript (strict, ESM) · Node.js ≥ 20 · pnpm monorepo · Astro 5 · MCP
 - License: MIT
+
+## Architecture (three units, all live)
+
+1. MCP server (`packages/mcp-server/`, published as `@chanmeng666/femtech-radar-mcp`) — deterministic
+   fetch → normalize → dedupe → score; tools `radar_collect` / `radar_sources`.
+2. Weekly workflow (`.github/workflows/weekly-radar.md`, `gh aw`, engine copilot) — Copilot curates a
+   digest and commits `data/YYYY-Www.json` via a review-gated PR + a summary issue.
+3. Astro + RSS site (`site/`, `femtech-radar-site`) — reads `data/*.json`, auto-deploys to GitHub Pages.
 
 ## Key documents
 
-- [README](https://github.com/ChanMeng666/femtech-radar/blob/feat/v1-mcp-server/README.md): overview, features, installation, usage
-- [AGENTS.md](https://github.com/ChanMeng666/femtech-radar/blob/feat/v1-mcp-server/AGENTS.md): how AI agents should work in this repo
-- [CONTRIBUTING](https://github.com/ChanMeng666/femtech-radar/blob/feat/v1-mcp-server/CONTRIBUTING.md): development setup and contribution workflow
-- [CHANGELOG](https://github.com/ChanMeng666/femtech-radar/blob/feat/v1-mcp-server/CHANGELOG.md): version history
+- [README](https://github.com/ChanMeng666/femtech-radar/blob/master/README.md): overview, features, installation, the live site
+- [AGENTS.md](https://github.com/ChanMeng666/femtech-radar/blob/master/AGENTS.md): how AI agents should work in this repo — full architecture, commands, gotchas
+- [Design spec](https://github.com/ChanMeng666/femtech-radar/tree/master/docs/superpowers/specs): the approved three-unit design
+- [Implementation plans](https://github.com/ChanMeng666/femtech-radar/tree/master/docs/superpowers/plans): per-unit task-level plans
+- [CONTRIBUTING](https://github.com/ChanMeng666/femtech-radar/blob/master/CONTRIBUTING.md): development setup and contribution workflow
+- [CHANGELOG](https://github.com/ChanMeng666/femtech-radar/blob/master/CHANGELOG.md): version history
 
 ## For agents
 
-To work effectively here: read the README and AGENTS.md first, then follow the commands and
-conventions they describe. Prefer the project's own scripts over ad-hoc commands.
+Read README and AGENTS.md first, then the design spec for depth. Prefer the project's own scripts over
+ad-hoc commands. Critical gotchas: in `site/`, import the data contract from the side-effect-free
+subpath `@chanmeng666/femtech-radar-mcp/schema` (never the package root — it boots the stdio server),
+and preserve the agent-added `why_it_matters` field (the base `WeeklyDataSchema` is non-strict and
+strips it). Module resolution differs by package: `.js` suffixes are required in `packages/mcp-server`,
+extensionless imports in `site/`. Keep the repo public (free Actions + Pages).

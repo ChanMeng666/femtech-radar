@@ -59,9 +59,12 @@ Agent-first FemTech intelligence: an MCP server that fetches, dedupes, and score
 
 The FemTech and women's-health world produces a scattered firehose of signal — research preprints, funding and product news, community opportunities, technical discussion — across dozens of sources. **femtech-radar** turns that noise into a curated, deduplicated, ranked digest, using only GitHub-native primitives plus a reusable [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server.
 
-This repository is **v1: the MCP server** — the deterministic "brain" of the pipeline. It fetches items from multiple sources, normalizes them into one shape, removes duplicates, and scores each item by **relevance × popularity × freshness**, then exposes the result over MCP so it can be driven by a [GitHub Agentic Workflow (`gh aw`)](https://github.github.com/gh-aw/), Claude Desktop, or any MCP client.
+It's a complete, live **three-unit pipeline** — `scrape → curate → publish`:
+1. an **MCP server** (the deterministic "brain") fetches from multiple sources, normalizes into one shape, dedupes, and scores each item by **relevance × popularity × freshness**, exposing the result over MCP;
+2. a weekly [GitHub Agentic Workflow (`gh aw`)](https://github.github.com/gh-aw/) drives the MCP, lets Copilot curate the digest, and commits the week's `data/*.json` via a review-gated PR;
+3. an **Astro + RSS site** reads that data and auto-deploys to GitHub Pages.
 
-It's built for **FemTech / women-in-tech practitioners** who want signal without the noise — and as a reference implementation of the `gh aw × MCP × GitHub Pages` pattern. The eventual product (see [Roadmap](#-project-status--roadmap)) is a subscribable weekly intelligence site that updates itself for free on a public GitHub repo.
+It's built for **FemTech / women-in-tech practitioners** who want signal without the noise — and as a reference implementation of the `gh aw × MCP × GitHub Pages` pattern. **The product is live:** a subscribable weekly intelligence site at **https://chanmeng666.github.io/femtech-radar/** that updates itself for free on a public GitHub repo.
 
 ## ✨ Key Features
 
@@ -77,14 +80,16 @@ It's built for **FemTech / women-in-tech practitioners** who want signal without
 
 `6` **Reusable anywhere MCP runs** — drop it into Claude Desktop or any MCP client; it isn't coupled to this project.
 
+`7` **Live, self-updating, subscribable** — a weekly `gh aw` workflow curates the digest into a review-gated `data/*.json` PR, and an [Astro + RSS site](https://chanmeng666.github.io/femtech-radar/) rebuilds itself on GitHub Pages. Readers [subscribe via RSS](https://chanmeng666.github.io/femtech-radar/rss.xml) — no manual scraping, no server to run.
+
 ## 🛠️ Tech Stack
 
 - **Language / Runtime:** TypeScript 5 (strict, ESM) · Node.js ≥ 20
 - **MCP:** [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol) (stdio server)
 - **Parsing / validation:** [Zod](https://zod.dev) (schema & runtime validation) · [fast-xml-parser](https://github.com/NaturalIntelligence/fast-xml-parser) (Atom/RSS)
 - **Tooling:** pnpm workspaces (monorepo) · [Vitest](https://vitest.dev) (tests) · [tsup](https://tsup.egoist.dev) (build)
-- **Site:** [Astro 5](https://astro.build) (`femtech-radar-site`) · GitHub Pages deploy via `deploy-pages.yml`
-- **Roadmap:** GitHub Agentic Workflows (`gh aw`) orchestration
+- **Orchestration:** [GitHub Agentic Workflows (`gh aw`)](https://github.github.com/gh-aw/) · engine `copilot`, model `gpt-4.1` · weekly schedule → review-gated data PR
+- **Site:** [Astro 5](https://astro.build) (`femtech-radar-site`) · [`@astrojs/rss`](https://docs.astro.build/en/recipes/rss/) · GitHub Pages deploy via `deploy-pages.yml`
 
 ## 🏗️ Architecture
 
@@ -102,9 +107,12 @@ graph TD
     AD --> P["collect()<br/>dedupe → score → sort → since-filter"]
     P --> T[MCP tools<br/>radar_collect · radar_sources]
     T --> C[MCP clients]
-    C -.roadmap.-> W[Weekly gh aw workflow]
-    W -.roadmap.-> S[Astro + RSS site on GitHub Pages]
+    C --> W[Weekly gh aw workflow<br/>Copilot curates · writes why_it_matters]
+    W --> D[(data/YYYY-Www.json<br/>review-gated PR)]
+    D --> S[Astro + RSS site<br/>GitHub Pages · live]
 ```
+
+All three units are built and live. The diagram shows the full `scrape → curate → publish` pipeline.
 
 </details>
 
@@ -132,15 +140,30 @@ pnpm --filter @chanmeng666/femtech-radar-mcp build
 pnpm --filter @chanmeng666/femtech-radar-mcp test
 ```
 
-The built server is an executable stdio MCP server at `packages/mcp-server/dist/index.js`.
+The built server is an executable stdio MCP server at `packages/mcp-server/dist/index.js`. It's also published to npm, so any MCP client can run it with `npx -y @chanmeng666/femtech-radar-mcp`.
+
+### Run the site locally
+
+```bash
+# Dev server (reads data/*.json)
+pnpm --filter femtech-radar-site dev
+
+# Production build + preview
+pnpm --filter femtech-radar-site build
+pnpm --filter femtech-radar-site preview
+```
+
+The published site is live at **https://chanmeng666.github.io/femtech-radar/** (RSS: `/rss.xml`); it rebuilds automatically whenever a new weekly `data/*.json` lands on `master`.
 
 ## 🛳 Project Status & Roadmap
 
-This is the first of three planned layers (see [`docs/superpowers/specs`](docs/superpowers/specs) for the full design):
+All three planned layers are built and live in production (see [`docs/superpowers/specs`](docs/superpowers/specs) for the full design and [`docs/superpowers/plans`](docs/superpowers/plans) for the per-unit implementation plans):
 
-- ✅ **v1 — MCP server** *(this release)*: industry (Google News) + research (arXiv) adapters, dedupe/score pipeline, `radar_collect` / `radar_sources` tools, resilient error handling, 28 tests.
-- ⏳ **v2 — orchestration**: opportunities + discussions adapters, publish to npm, a weekly `gh aw` workflow that curates a digest, ChatOps slash commands.
+- ✅ **v1 — MCP server**: industry (Google News) + research (arXiv) adapters, dedupe/score pipeline, `radar_collect` / `radar_sources` tools, resilient error handling, 28 tests. Published to npm as `@chanmeng666/femtech-radar-mcp`.
+- ✅ **v2 — orchestration**: a weekly `gh aw` workflow (engine `copilot`, model `gpt-4.1`) that drives the MCP, curates a digest, and emits a review-gated data PR plus a summary issue — proven end-to-end in production (first digest: `data/2026-W27.json`).
 - ✅ **v3 — publishing** *(live)*: Astro 5 site auto-deployed to GitHub Pages at https://chanmeng666.github.io/femtech-radar/ with a subscribable RSS feed at https://chanmeng666.github.io/femtech-radar/rss.xml; rebuilds automatically on every weekly data update.
+
+**Deferred to a future version** (not yet built): the `opportunities` + `discussions` source adapters, ChatOps slash commands (`/deep-dive`), per-section RSS feeds, and full bilingual (i18n routing is reserved).
 
 ## 📖 Usage Guide
 
