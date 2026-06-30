@@ -1,30 +1,41 @@
 {
   "week": "2026-W27",
   "generated_at": "2026-06-30T09:43:51+00:00",
-  "editor_note": "This week, the FemTech landscape highlights regulatory shifts, expanded access, and new research tools. Industry news covers FDA headlines, access challenges, and community-driven health initiatives. Research advances include open benchmarks for maternal health AI and robust, on-device tools for midwives. These developments reflect a growing focus on practical, equitable solutions for women's health worldwide.",
+  "editor_note": "This week highlights the ongoing advocacy for women’s health research funding, the importance of community clinical trials, and the emergence of new AI tools for maternal and neonatal care. Opportunities in women’s health remain strong, though there were no notable public discussions this week.",
   "sections": {
     "industry": [
       {
-        "id": "66771f0e39eebd7f",
+        "id": "b618657c87c7a897",
         "section": "industry",
-        "title": "5 women's health FDA headlines you missed in Q2 2026 - Contemporary OB/GYN",
-        "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPMjBCT2FXaHhxMGhwWXFJSlNDbU9ITHRhVTR5cGF0eXpaMFJpLWxUSzItYmV5aV9XeE52TnkxQS1tLXJucjhCQWM0T2hubF8ybUd1bzJHNVZWLTdtTFJSOFdiQVpvX0RsWExVRTdac2FHWjFEb3poUkNQWFVyNG5aNHlhbHFBc2k3cmc?oc=5",
+        "title": "DWC Members Demand Trump Admin Restore & Expand Funding for Women’s Health Research - Democratic Women's Caucus (.gov)",
+        "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOZGlOMFVFOWdaMlQ2WjBabDYzLTJxeVdRNmZGaFJxaUJaZVBQeG5SdkphNk9Ddnlaakxha2V4ZFZRTFZObVBqQU9sQUpqcWNhQTdkWnJJaEtPYlYyY3lWY0FCLWUxYW5fVDE1R1JZZFpvUldBLW1CaVFsTEpacDQyVFBwZGNjOWs?oc=5",
         "source": "Google News",
-        "summary": "<a href=\"https://news.google.com/rss/articles/CBMiigFBVV95cUxPMjBCT2FXaHhxMGhwWXFJSlNDbU9ITHRhVTR5cGF0eXpaMFJpLWxUSzItYmV5aV9XeE52TnkxQS1tLXJucjhCQWM0T2hubF8ybUd1bzJHNVZWLTdtTFJSOFdiQVpvX0RsWExVRTdac2FHWjFEb3poUkNQWFVyNG5aNHlhbHFBc2k3cmc?oc=5\" target=\"_blank\">5 women's health FDA headlines you missed in Q2 2026</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Contemporary OB/GYN</font>",
-        "score": 39,
-        "published_at": "2026-06-29T20:33:05.000Z",
-        "why_it_matters": "Regulatory updates from the FDA directly impact the development and availability of FemTech solutions, informing practitioners about new opportunities and compliance requirements."
+        "summary": "<a href=\"https://news.google.com/rss/articles/CBMihwFBVV95cUxOZGlOMFVFOWdaMlQ2WjBabDYzLTJxeVdRNmZGaFJxaUJaZVBQeG5SdkphNk9Ddnlaakxha2V4ZFZRTFZObVBqQU9sQUpqcWNhQTdkWnJJaEtPYlYyY3lWY0FCLWUxYW5fVDE1R1JZZFpvUldBLW1CaVFsTEpacDQyVFBwZGNjOWs?oc=5\" target=\"_blank\">DWC Members Demand Trump Admin Restore & Expand Funding for Women’s Health Research</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Democratic Women's Caucus (.gov)</font>",
+        "published_at": "2026-06-30T17:35:32.000Z",
+        "score": 23,
+        "why_it_matters": "Advocacy for increased funding is crucial for advancing research and innovation in women’s health."
       },
       {
-        "id": "ac824b2a67461943",
+        "id": "eebb24c621a85df8",
         "section": "industry",
-        "title": "OBBBA is Threatening Women’s Health Care Access - National Partnership for Women & Families",
-        "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxObEFzbnVlVlZtMGdVeTByaE5qTTZuOGREYkR6YU9yRlNPa283S2VoYVBPWUYwMVM4MmdqZk9Xb0Z1WldSc1ViekQ1MkdIek15dW12bHl1eWI3VlpnbmxPNk1ZYm1kLXBOcnRDcFhabHlwY1lVVnQ3d0REMjhfRDNOX2o0TTFVYTBadEtZclVsNA?oc=5",
+        "title": "Girl, Let’s Talk: Women’s health and fibroids with Dr. Dawna Quinn - WREG.com",
+        "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPS203T3ZYd291SzZlN3NSd3lLOG4zbi1wcE5TOEJiSVYtMWdLazlFU3J1aF9UdGp6dG5IYjNhR2QtMkhvcTBpZTdwczJEUHNTSTdTM1VoS0RBRl9HNUo4UVExaXNzenhFMFZEUmozWGNwMUYtRVllbGlUVEFWMlJDT2dKRlRnX0xST3RTdk5VYWx4YlBtYmRzRm9B0gGfAUFVX3lxTE9fV0s5dXJEOF9KVHBfZjE3WHhGYWlWN2tEOFJBNXYtUlNmS1VsU2VTUndTOVR1cHF1QXBWVFZ3c3pkQmg5VERWREpTbmNqS0hLOHVCVFZVeGJVNHVDNmNoMXNPUGh4Qy1CQXhaMWdwbVNIUE5Gb0oySUhVekx1azY5dkN1cVR1THE0eGRkRkFLQm5BT3VkOW9JaUNNYzduOA?oc=5",
         "source": "Google News",
-        "summary": "<a href=\"https://news.google.com/rss/articles/CBMijwFBVV95cUxObEFzbnVlVlZtMGdVeTByaE5qTTZuOGREYkR6YU9yRlNPa283S2VoYVBPWUYwMVM4MmdqZk9Xb0Z1WldSc1ViekQ1MkdIek15dW12bHl1eWI3VlpnbmxPNk1ZYm1kLXBOcnRDcFhabHlwY1lVVnQ3d0REMjhfRDNOX2o0TTFVYTBadEtZclVsNA?oc=5\" target=\"_blank\">OBBBA is Threatening Women’s Health Care Access</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">National Partnership for Women & Families</font>",
+        "summary": "<a href=\"https://news.google.com/rss/articles/CBMimgFBVV95cUxPS203T3ZYd291SzZlN3NSd3lLOG4zbi1wcE5TOEJiSVYtMWdLazlFU3J1aF9UdGp6dG5IYjNhR2QtMkhvcTBpZTdwczJEUHNTSTdTM1VoS0RBRl9HNUo4UVExaXNzenhFMFZEUmozWGNwMUYtRVllbGlUVEFWMlJDT2dKRlRnX0xST3RTdk5VYWx4YlBtYmRzRm9B0gGfAUFVX3lxTE9fV0s5dXJEOF9KVHBfZjE3WHhGYWlWN2tEOFJBNXYtUlNmS1VsU2VTUndTOVR1cHF1QXBWVFZ3c3pkQmg5VERWREpTbmNqS0hLOHVCVFZVeGJVNHVDNmNoMXNPUGh4Qy1CQXhaMWdwbVNIUE5Gb0oySUhVekx1azY5dkN1cVR1THE0eGRkRkFLQm5BT3VkOW9JaUNNYzduOA?oc=5\" target=\"_blank\">Girl, Let’s Talk: Women’s health and fibroids with Dr. Dawna Quinn</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">WREG.com</font>",
+        "published_at": "2026-06-30T16:40:16.000Z",
         "score": 23,
-        "published_at": "2026-06-30T02:56:38.000Z",
-        "why_it_matters": "Policy changes that restrict access to care can have far-reaching effects on women's health equity and the FemTech market."
+        "why_it_matters": "Raising awareness about fibroids empowers women to seek timely care and improves health outcomes."
+      },
+      {
+        "id": "5f9f768e5d36fb84",
+        "section": "industry",
+        "title": "Startup Tri-Valley panel explores how community clinical trials can help advance women’s health - Pleasanton Weekly",
+        "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPZHljSkhkellGNExLSVUzWFRqRFB5MmVDOXgxaHJ3NnZBUDZ2UlJEMHVpaFg5VjZCR3h2MHRVLVdUVlVFbWNiMFhYTG95YzFselRNU19sdUpKNWtiNE80UDVyOXJicXBkck9pZV9wX3R2YTRqbmtGNkhrWnlzVlhpOF9kT1Q4SzZlQ2VjSE9jRllyTk1nSEh5cVpBY3VFVmZmNGhfeThOQldmYWE3clprMTVtblA3Q1hSM21XU0FSWXU0UGJWV1JBb20tSDlhWHRFVnRxWTVsZlVXRG0t?oc=5",
+        "source": "Google News",
+        "summary": "<a href=\"https://news.google.com/rss/articles/CBMi3AFBVV95cUxPZHljSkhkellGNExLSVUzWFRqRFB5MmVDOXgxaHJ3NnZBUDZ2UlJEMHVpaFg5VjZCR3h2MHRVLVdUVlVFbWNiMFhYTG95YzFselRNU19sdUpKNWtiNE80UDVyOXJicXBkck9pZV9wX3R2YTRqbmtGNkhrWnlzVlhpOF9kT1Q4SzZlQ2VjSE9jRllyTk1nSEh5cVpBY3VFVmZmNGhfeThOQldmYWE3clprMTVtblA3Q1hSM21XU0FSWXU0UGJWV1JBb20tSDlhWHRFVnRxWTVsZlVXRG0t?oc=5\" target=\"_blank\">Startup Tri-Valley panel explores how community clinical trials can help advance women’s health</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Pleasanton Weekly</font>",
+        "published_at": "2026-06-30T21:51:21.000Z",
+        "score": 23,
+        "why_it_matters": "Community clinical trials foster innovation and ensure research reflects real-world women’s health needs."
       },
       {
         "id": "858fce86c12a424d",
@@ -33,9 +44,9 @@
         "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1RbGVBa2pHa0JQUXpsNk8zTWx1bXdhQzdmbDRhTFMtMkxKak1nNmNRNkVWOGN1RlhzVzlNVnBKOEdBdVF6YUZxdExvR3dDTUZwck9IcWtpRVNFanBKNUpZZnBzQkdlXzZxdElwNUs4RzJOUHVR?oc=5",
         "source": "Google News",
         "summary": "<a href=\"https://news.google.com/rss/articles/CBMidEFVX3lxTE1RbGVBa2pHa0JQUXpsNk8zTWx1bXdhQzdmbDRhTFMtMkxKak1nNmNRNkVWOGN1RlhzVzlNVnBKOEdBdVF6YUZxdExvR3dDTUZwck9IcWtpRVNFanBKNUpZZnBzQkdlXzZxdElwNUs4RzJOUHVR?oc=5\" target=\"_blank\">King’s Passion for Women’s Health Begins with Family, Grows at AAMU</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">aamu.edu</font>",
-        "score": 23,
         "published_at": "2026-06-30T08:13:37.000Z",
-        "why_it_matters": "Personal stories and academic leadership inspire future practitioners and highlight the importance of community-driven health initiatives."
+        "score": 23,
+        "why_it_matters": "Personal stories inspire future leaders and highlight the importance of family in women’s health advocacy."
       }
     ],
     "research": [
@@ -73,7 +84,30 @@
         "why_it_matters": "Advances in annotation-efficient ultrasound AI can make fetal monitoring more accessible and accurate, especially in resource-limited settings."
       }
     ],
-    "opportunities": [],
+    "opportunities": [
+      {
+        "id": "7c975b36afb9ee15",
+        "section": "opportunities",
+        "title": "Scheduler - Women's Health Ryland",
+        "url": "https://www.linkedin.com/jobs/view/scheduler-women-s-health-ryland-at-renown-health-4431543075",
+        "source": "LinkedIn",
+        "summary": "Renown Health · Reno, NV",
+        "score": 38,
+        "published_at": "2026-06-29T00:00:00.000Z",
+        "why_it_matters": "This role supports operational excellence in women’s health, ensuring patients receive timely care."
+      },
+      {
+        "id": "50d43545c96b7a02",
+        "section": "opportunities",
+        "title": "Medical Receptionist",
+        "url": "https://www.linkedin.com/jobs/view/medical-receptionist-at-together-women-s-health-4432914764",
+        "source": "LinkedIn",
+        "summary": "Together Women's Health · Nashville, TN",
+        "score": 36,
+        "published_at": "2026-06-26T00:00:00.000Z",
+        "why_it_matters": "Frontline roles like this are vital for patient experience and access in women’s health clinics."
+      }
+    ],
     "discussions": []
   }
 }
