@@ -6,7 +6,7 @@
 |---------|--------------------|
 | Latest  | :white_check_mark: |
 
-We provide security updates for the latest released version on the `feat/v1-mcp-server` branch.
+We provide security updates for the latest released version on the `master` branch (and the latest published `@chanmeng666/femtech-radar-mcp` on npm).
 
 ## Reporting a Vulnerability
 

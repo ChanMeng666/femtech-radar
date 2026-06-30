@@ -32,19 +32,31 @@ Have an idea? [Open a feature request](https://github.com/ChanMeng666/femtech-ra
    ```bash
    git commit -m "feat: short description of your change"
    ```
-5. **Push** and open a Pull Request against the `feat/v1-mcp-server` branch.
+5. **Push** and open a Pull Request against the `master` branch.
 
 ## Development Setup
 
+This is a **pnpm monorepo** (Node.js ≥ 20, pnpm ≥ 9). See [AGENTS.md](AGENTS.md) for the full command
+reference and architecture.
+
 ```bash
-# Install dependencies
-npm install
+# Install workspace dependencies
+pnpm install
 
-# Production build
-npm run build
+# Run all tests (MCP server + site)
+pnpm -r test
 
-# Run the test suite
-npm test
+# Unit ① — MCP server (packages/mcp-server)
+pnpm --filter @chanmeng666/femtech-radar-mcp build
+pnpm --filter @chanmeng666/femtech-radar-mcp test
+
+# Unit ③ — Astro site (site/)
+pnpm --filter femtech-radar-site build
+pnpm --filter femtech-radar-site exec astro check
+pnpm --filter femtech-radar-site test
+
+# Validate the data contract
+node scripts/validate-data.mjs
 ```
 
 ## Code of Conduct
