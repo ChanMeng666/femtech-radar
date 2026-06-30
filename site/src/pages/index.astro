@@ -1,12 +1,25 @@
 ---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionBlock from '../components/SectionBlock.astro';
+import { latestWeek } from '../lib/weeks';
+import { SECTION_KEYS } from '../lib/schema';
+import type { WeeklyDataWithWhy } from '../lib/schema';
+
+const entries = await getCollection('radar');
+const weeks = entries.map((e) => e.data as WeeklyDataWithWhy);
+const current = latestWeek(weeks);
+const generated = current ? new Date(current.generated_at).toISOString().slice(0, 10) : '';
 ---
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FemTech Radar</title>
-  </head>
-  <body>
-    <h1>FemTech Radar</h1>
-  </body>
-</html>
+<BaseLayout title="FemTech Radar — Latest">
+  {current ? (
+    <>
+      <h1>FemTech Radar</h1>
+      <p class="meta"><strong>Week {current.week}</strong> · generated {generated}</p>
+      <div class="editor-note"><p>{current.editor_note}</p></div>
+      {SECTION_KEYS.map((key) => <SectionBlock section={key} items={current.sections[key]} />)}
+    </>
+  ) : (
+    <p class="empty">No weekly data yet. Check back after the next Monday run.</p>
+  )}
+</BaseLayout>
