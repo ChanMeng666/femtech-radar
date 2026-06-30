@@ -140,7 +140,7 @@ This is the first of three planned layers (see [`docs/superpowers/specs`](docs/s
 
 - ✅ **v1 — MCP server** *(this release)*: industry (Google News) + research (arXiv) adapters, dedupe/score pipeline, `radar_collect` / `radar_sources` tools, resilient error handling, 28 tests.
 - ⏳ **v2 — orchestration**: opportunities + discussions adapters, publish to npm, a weekly `gh aw` workflow that curates a digest, ChatOps slash commands.
-- 🔨 **v3 — publishing**: Astro 5 site built and CI-green; auto-deploys to GitHub Pages at https://chanmeng666.github.io/femtech-radar/ (subscribable RSS at https://chanmeng666.github.io/femtech-radar/rss.xml) once Pages is enabled.
+- ✅ **v3 — publishing** *(live)*: Astro 5 site auto-deployed to GitHub Pages at https://chanmeng666.github.io/femtech-radar/ with a subscribable RSS feed at https://chanmeng666.github.io/femtech-radar/rss.xml; rebuilds automatically on every weekly data update.
 
 ## 📖 Usage Guide
 
