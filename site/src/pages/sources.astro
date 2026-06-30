@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONFIGURED_SOURCES } from '../lib/sources';
+import { SECTION_KEYS } from '../lib/schema';
+import type { WeeklyDataWithWhy } from '../lib/schema';
+
+const entries = await getCollection('radar');
+const weeks = entries.map((e) => e.data as WeeklyDataWithWhy);
+const seen = new Set<string>();
+for (const w of weeks) for (const k of SECTION_KEYS) for (const it of w.sections[k]) seen.add(it.source);
+const observed = [...seen].sort();
+---
+<BaseLayout title="FemTech Radar — Sources">
+  <h1>Sources</h1>
+  <p>FemTech Radar is fully transparent. The deterministic MCP server fetches, dedupes, and scores items
+     from the configured sources below; the editorial selection is made by a GitHub Agentic Workflow.</p>
+
+  <h2>Configured sources</h2>
+  <div class="cards">
+    {CONFIGURED_SOURCES.map((s) => (
+      <article class="card">
+        <h3>{s.name}</h3>
+        <p class="summary">{s.detail}</p>
+        <div class="meta"><span class="score">{s.section}</span><span>{s.status}</span></div>
+      </article>
+    ))}
+  </div>
+
+  <h2>Sources observed in published data</h2>
+  {observed.length > 0 ? <p>{observed.join(', ')}</p> : <p class="empty">None yet.</p>}
+</BaseLayout>

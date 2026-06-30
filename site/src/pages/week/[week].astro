@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import { SECTION_KEYS } from '../../lib/schema';
+import type { WeeklyDataWithWhy } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('radar');
+  return entries.map((e) => ({
+    params: { week: e.data.week },
+    props: { data: e.data as WeeklyDataWithWhy },
+  }));
+}
+
+const { data } = Astro.props as { data: WeeklyDataWithWhy };
+const generated = new Date(data.generated_at).toISOString().slice(0, 10);
+---
+<BaseLayout title={`FemTech Radar — ${data.week}`}>
+  <h1>Week {data.week}</h1>
+  <p class="meta">generated {generated}</p>
+  <div class="editor-note"><p>{data.editor_note}</p></div>
+  {SECTION_KEYS.map((key) => <SectionBlock section={key} items={data.sections[key]} />)}
+</BaseLayout>

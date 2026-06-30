@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { sortWeeksDesc } from '../lib/weeks';
+import { SECTION_KEYS } from '../lib/schema';
+import { withBase } from '../lib/with-base';
+import { truncate } from '../lib/strip-html';
+import type { WeeklyDataWithWhy } from '../lib/schema';
+
+const entries = await getCollection('radar');
+const weeks = sortWeeksDesc(entries.map((e) => e.data as WeeklyDataWithWhy));
+const count = (w: WeeklyDataWithWhy) => SECTION_KEYS.reduce((n, k) => n + w.sections[k].length, 0);
+---
+<BaseLayout title="FemTech Radar — Archive">
+  <h1>Archive</h1>
+  {weeks.length === 0 ? <p class="empty">No issues yet.</p> : (
+    <div class="cards">
+      {weeks.map((w) => (
+        <article class="card">
+          <h3><a href={withBase(`/week/${w.week}`)}>Week {w.week}</a></h3>
+          <p class="summary">{truncate(w.editor_note, 160)}</p>
+          <div class="meta"><span>{count(w)} items</span></div>
+        </article>
+      ))}
+    </div>
+  )}
+</BaseLayout>

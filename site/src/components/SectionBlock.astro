@@ -1,0 +1,28 @@
+---
+import type { RadarItemWithWhy, SectionKey } from '../lib/schema';
+import RadarCard from './RadarCard.astro';
+
+interface Props { section: SectionKey; items: RadarItemWithWhy[]; }
+const { section, items } = Astro.props;
+
+const LABELS: Record<SectionKey, string> = {
+  industry: 'Industry',
+  research: 'Research',
+  opportunities: 'Opportunities',
+  discussions: 'Discussions',
+};
+const color = `var(--${section})`;
+---
+<section class="section">
+  <div class="section-head">
+    <span class="section-dot" style={`background:${color}`}></span>
+    <h2 style={`color:${color}`}>{LABELS[section]}</h2>
+  </div>
+  {items.length > 0 ? (
+    <div class="cards">
+      {items.map((item) => <RadarCard item={item} />)}
+    </div>
+  ) : (
+    <p class="empty">No items this week — this section arrives in v2.</p>
+  )}
+</section>

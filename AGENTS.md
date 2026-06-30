@@ -10,7 +10,7 @@ femtech-radar — Agent-first FemTech intelligence: an MCP server that fetches, 
 - **Primary language / stack:** TypeScript (strict, ESM) on Node.js ≥ 20, pnpm monorepo
 - **Default branch:** `master`
 - **Repository:** https://github.com/ChanMeng666/femtech-radar
-- **Scope of v1:** the MCP server at `packages/mcp-server` (the `gh aw` workflow and Astro site are later plans — see `docs/superpowers/specs`).
+- **Scope of v1:** the MCP server at `packages/mcp-server`. The `gh aw` workflow is a later plan. Unit ③ — the Astro site — now exists in `site/`, reads `data/*.json`, and deploys to GitHub Pages via `deploy-pages.yml`.
 
 ## Commands
 
@@ -26,6 +26,12 @@ pnpm --filter @chanmeng666/femtech-radar-mcp test
 
 # Type-check only
 cd packages/mcp-server && pnpm exec tsc --noEmit
+
+# Build the Astro site
+pnpm --filter femtech-radar-site build
+# Type-check + unit-test the site
+pnpm --filter femtech-radar-site exec astro check
+pnpm --filter femtech-radar-site test
 ```
 
 > If a command above is missing or wrong, check the project manifest (e.g. `package.json` scripts,
