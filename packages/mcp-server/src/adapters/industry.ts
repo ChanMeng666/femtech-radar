@@ -1,15 +1,11 @@
 import { XMLParser } from "fast-xml-parser";
-import { createHash } from "node:crypto";
 import type { RadarItem } from "../schema.js";
 import { scoreItem } from "../score.js";
 import type { Adapter, CollectOpts } from "./types.js";
+import { hashId } from "./utils.js";
 
 const GOOGLE_NEWS = "https://news.google.com/rss/search";
 const parser = new XMLParser();
-
-function hashId(url: string): string {
-  return createHash("sha256").update(url).digest("hex").slice(0, 16);
-}
 
 export const industryAdapter: Adapter = {
   section: "industry",

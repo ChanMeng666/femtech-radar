@@ -1,6 +1,6 @@
 import type { RadarItem } from "../schema.js";
 
-export type Fetcher = (url: string) => Promise<string>;
+export type Fetcher = (url: string, init?: { headers?: Record<string, string> }) => Promise<string>;
 
 export interface CollectOpts {
   since: Date;

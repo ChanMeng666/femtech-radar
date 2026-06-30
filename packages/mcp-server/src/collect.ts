@@ -4,11 +4,14 @@ import type { Adapter, Fetcher } from "./adapters/types.js";
 import { industryAdapter } from "./adapters/industry.js";
 import { researchAdapter } from "./adapters/research.js";
 
-export const httpFetcher: Fetcher = async (url: string): Promise<string> => {
+export const httpFetcher: Fetcher = async (url, init): Promise<string> => {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 10_000);
   try {
-    const res = await fetch(url, { signal: ctrl.signal, headers: { "user-agent": "femtech-radar" } });
+    const res = await fetch(url, {
+      signal: ctrl.signal,
+      headers: { "user-agent": "femtech-radar", ...(init?.headers ?? {}) },
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status} from ${url}`);
     return await res.text();
   } finally {
