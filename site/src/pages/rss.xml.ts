@@ -10,7 +10,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: 'FemTech Radar',
     description: 'A weekly, curated digest of FemTech industry news and women’s-health research.',
-    site: context.site ?? 'https://chanmeng666.github.io/femtech-radar',
+    site: new URL(import.meta.env.BASE_URL, context.site ?? 'https://chanmeng666.github.io').toString(),
     items: toRssItems(weeks).map((i) => ({
       title: i.title,
       link: i.link,
