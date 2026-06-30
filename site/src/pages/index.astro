@@ -4,12 +4,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionBlock from '../components/SectionBlock.astro';
 import { latestWeek } from '../lib/weeks';
 import { SECTION_KEYS } from '../lib/schema';
-import type { WeeklyDataWithWhy } from '../lib/schema';
+import { getWeeks, safeISODate } from '../lib/content';
 
 const entries = await getCollection('radar');
-const weeks = entries.map((e) => e.data as WeeklyDataWithWhy);
+const weeks = getWeeks(entries);
 const current = latestWeek(weeks);
-const generated = current ? new Date(current.generated_at).toISOString().slice(0, 10) : '';
+const generated = current ? safeISODate(current.generated_at) : '';
 ---
 <BaseLayout title="FemTech Radar — Latest">
   {current ? (

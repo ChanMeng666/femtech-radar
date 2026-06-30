@@ -6,9 +6,10 @@ import { SECTION_KEYS } from '../lib/schema';
 import { withBase } from '../lib/with-base';
 import { truncate } from '../lib/strip-html';
 import type { WeeklyDataWithWhy } from '../lib/schema';
+import { getWeeks } from '../lib/content';
 
 const entries = await getCollection('radar');
-const weeks = sortWeeksDesc(entries.map((e) => e.data as WeeklyDataWithWhy));
+const weeks = sortWeeksDesc(getWeeks(entries));
 const count = (w: WeeklyDataWithWhy) => SECTION_KEYS.reduce((n, k) => n + w.sections[k].length, 0);
 ---
 <BaseLayout title="FemTech Radar — Archive">

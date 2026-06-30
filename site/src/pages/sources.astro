@@ -3,10 +3,10 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CONFIGURED_SOURCES } from '../lib/sources';
 import { SECTION_KEYS } from '../lib/schema';
-import type { WeeklyDataWithWhy } from '../lib/schema';
+import { getWeeks } from '../lib/content';
 
 const entries = await getCollection('radar');
-const weeks = entries.map((e) => e.data as WeeklyDataWithWhy);
+const weeks = getWeeks(entries);
 const seen = new Set<string>();
 for (const w of weeks) for (const k of SECTION_KEYS) for (const it of w.sections[k]) seen.add(it.source);
 const observed = [...seen].sort();
