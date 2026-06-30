@@ -2,11 +2,11 @@ import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import { getCollection } from 'astro:content';
 import { toRssItems } from '../lib/rss';
-import type { WeeklyDataWithWhy } from '../lib/schema';
+import { getWeeks } from '../lib/content';
 
 export async function GET(context: APIContext) {
   const entries = await getCollection('radar');
-  const weeks = entries.map((e) => e.data as WeeklyDataWithWhy);
+  const weeks = getWeeks(entries);
   return rss({
     title: 'FemTech Radar',
     description: 'A weekly, curated digest of FemTech industry news and women’s-health research.',

@@ -68,7 +68,7 @@ It's built for **FemTech / women-in-tech practitioners** who want signal without
 
 ## ✨ Key Features
 
-`1` **One MCP tool, a whole radar** — `radar_collect` returns normalized, deduped, scored items per section. v1 ships **industry** (Google News) and **research** (arXiv); **opportunities** and **discussions** are defined and roadmapped.
+`1` **One MCP tool, a whole radar** — `radar_collect` returns normalized, deduped, scored items per section. All four sections are live: **industry** (Google News), **research** (arXiv), **opportunities** (LinkedIn, with opt-in SerpAPI Google Jobs), and **discussions** (Hacker News).
 
 `2` **Deterministic, testable core** — `fetch → normalize → dedupe → score`. The server makes no editorial judgment; that's left to the agent that drives it. 28 unit tests, and **zero real network calls in tests** (all I/O is injected).
 
@@ -80,7 +80,7 @@ It's built for **FemTech / women-in-tech practitioners** who want signal without
 
 `6` **Reusable anywhere MCP runs** — drop it into Claude Desktop or any MCP client; it isn't coupled to this project.
 
-`7` **Live, self-updating, subscribable** — a weekly `gh aw` workflow curates the digest into a review-gated `data/*.json` PR, and an [Astro + RSS site](https://chanmeng666.github.io/femtech-radar/) rebuilds itself on GitHub Pages. Readers [subscribe via RSS](https://chanmeng666.github.io/femtech-radar/rss.xml) — no manual scraping, no server to run.
+`7` **Live, self-updating, subscribable** — a weekly `gh aw` workflow curates the digest into a review-gated `data/*.json` PR, and an [Astro + RSS site](https://chanmeng666.github.io/femtech-radar/) rebuilds itself on GitHub Pages. Readers subscribe via the [full RSS feed](https://chanmeng666.github.io/femtech-radar/rss.xml) or per-section feeds at `/rss/<section>.xml` — no manual scraping, no server to run.
 
 ## 🛠️ Tech Stack
 
@@ -90,6 +90,7 @@ It's built for **FemTech / women-in-tech practitioners** who want signal without
 - **Tooling:** pnpm workspaces (monorepo) · [Vitest](https://vitest.dev) (tests) · [tsup](https://tsup.egoist.dev) (build)
 - **Orchestration:** [GitHub Agentic Workflows (`gh aw`)](https://github.github.com/gh-aw/) · engine `copilot`, model `gpt-4.1` · weekly schedule → review-gated data PR
 - **Site:** [Astro 5](https://astro.build) (`femtech-radar-site`) · [`@astrojs/rss`](https://docs.astro.build/en/recipes/rss/) · GitHub Pages deploy via `deploy-pages.yml`
+- **Built on:** the `opportunities` adapter ports LinkedIn guest-endpoint logic from the owner's `linkedin-jobs-search` project (inspired by `linkedin-jobs-api`); the opt-in SerpAPI Google Jobs path is ported from `server-google-jobs`
 
 ## 🏗️ Architecture
 
@@ -101,9 +102,13 @@ graph TD
     subgraph Sources
       A1[arXiv API]
       A2[Google News RSS]
+      A3[LinkedIn Jobs]
+      A4[Hacker News Algolia]
     end
     A1 --> AD[Source adapters<br/>normalize → RadarItem]
     A2 --> AD
+    A3 --> AD
+    A4 --> AD
     AD --> P["collect()<br/>dedupe → score → sort → since-filter"]
     P --> T[MCP tools<br/>radar_collect · radar_sources]
     T --> C[MCP clients]
@@ -112,7 +117,7 @@ graph TD
     D --> S[Astro + RSS site<br/>GitHub Pages · live]
 ```
 
-All three units are built and live. The diagram shows the full `scrape → curate → publish` pipeline.
+All three units are built and live; all four source sections are active.
 
 </details>
 
@@ -162,8 +167,9 @@ All three planned layers are built and live in production (see [`docs/superpower
 - ✅ **v1 — MCP server**: industry (Google News) + research (arXiv) adapters, dedupe/score pipeline, `radar_collect` / `radar_sources` tools, resilient error handling, 28 tests. Published to npm as `@chanmeng666/femtech-radar-mcp`.
 - ✅ **v2 — orchestration**: a weekly `gh aw` workflow (engine `copilot`, model `gpt-4.1`) that drives the MCP, curates a digest, and emits a review-gated data PR plus a summary issue — proven end-to-end in production (first digest: `data/2026-W27.json`).
 - ✅ **v3 — publishing** *(live)*: Astro 5 site auto-deployed to GitHub Pages at https://chanmeng666.github.io/femtech-radar/ with a subscribable RSS feed at https://chanmeng666.github.io/femtech-radar/rss.xml; rebuilds automatically on every weekly data update.
+- ✅ **vNext — 4-section pipeline**: `opportunities` (LinkedIn, with opt-in SerpAPI Google Jobs) and `discussions` (Hacker News) adapters now active; per-section RSS feeds at `/rss/<section>.xml`; site polish (favicon, numeric-entity decode, sources chip); weekly workflow updated to collect all four sections.
 
-**Deferred to a future version** (not yet built): the `opportunities` + `discussions` source adapters, ChatOps slash commands (`/deep-dive`), per-section RSS feeds, and full bilingual (i18n routing is reserved).
+**Deferred to a future version:** ChatOps slash commands (`/deep-dive`) and full bilingual support (i18n routing is reserved).
 
 ## 📖 Usage Guide
 
@@ -174,7 +180,7 @@ femtech-radar is consumed as an **MCP server**. It exposes two tools:
 | `radar_collect` | `section` (`"industry"` \| `"research"` \| `"opportunities"` \| `"discussions"`), optional `since` (ISO date, default 7 days ago), optional `limit` (default 15) | `{ items: RadarItem[], warnings: string[] }` — deduped, scored, sorted, date-filtered |
 | `radar_sources` | _none_ | the configured source list per section |
 
-> In v1 only `industry` and `research` have adapters; `opportunities` and `discussions` return an empty list with a `"no adapter for …"` warning.
+> All four sections are live. `industry` (Google News) and `research` (arXiv) require no API key. `opportunities` uses LinkedIn by default (opt-in SerpAPI Google Jobs when `SERP_API_KEY` is set). `discussions` uses Hacker News Algolia (free, no key). LinkedIn is best-effort — graceful degradation to `[]` applies if rate-limited.
 
 **Subscribe via RSS:** the weekly digest is published at [`https://chanmeng666.github.io/femtech-radar/rss.xml`](https://chanmeng666.github.io/femtech-radar/rss.xml) and works in any feed reader.
 
@@ -219,7 +225,7 @@ packages/mcp-server/src/
 ├── schema.ts          # Zod RadarItem / WeeklyData (the shared data contract)
 ├── dedup.ts           # URL canonicalization + title-similarity dedupe
 ├── score.ts           # relevance × popularity × freshness scoring
-├── adapters/          # one file per source (research = arXiv, industry = Google News)
+├── adapters/          # one file per source (industry = Google News, research = arXiv, opportunities = LinkedIn/SerpAPI, discussions = HN)
 ├── collect.ts         # orchestration: adapter → dedupe → score → sort → since-filter
 ├── tools.ts           # radar_collect / radar_sources handlers
 └── index.ts           # stdio MCP server entry

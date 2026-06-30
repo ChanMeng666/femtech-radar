@@ -3,12 +3,17 @@ import { dedupe } from "./dedup.js";
 import type { Adapter, Fetcher } from "./adapters/types.js";
 import { industryAdapter } from "./adapters/industry.js";
 import { researchAdapter } from "./adapters/research.js";
+import { opportunitiesAdapter } from "./adapters/opportunities.js";
+import { discussionsAdapter } from "./adapters/discussions.js";
 
-export const httpFetcher: Fetcher = async (url: string): Promise<string> => {
+export const httpFetcher: Fetcher = async (url, init): Promise<string> => {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 10_000);
   try {
-    const res = await fetch(url, { signal: ctrl.signal, headers: { "user-agent": "femtech-radar" } });
+    const res = await fetch(url, {
+      signal: ctrl.signal,
+      headers: { "user-agent": "femtech-radar", ...(init?.headers ?? {}) },
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status} from ${url}`);
     return await res.text();
   } finally {
@@ -19,8 +24,8 @@ export const httpFetcher: Fetcher = async (url: string): Promise<string> => {
 export const ADAPTERS: Record<Section, Adapter | null> = {
   industry: industryAdapter,
   research: researchAdapter,
-  opportunities: null,
-  discussions: null,
+  opportunities: opportunitiesAdapter,
+  discussions: discussionsAdapter,
 };
 
 export async function collect(args: {

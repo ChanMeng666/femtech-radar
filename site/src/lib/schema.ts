@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { RadarItemSchema, Section } from '@chanmeng666/femtech-radar-mcp/schema';
+import { RadarItemSchema } from '@chanmeng666/femtech-radar-mcp/schema';
 
 export const RadarItemWithWhySchema = RadarItemSchema.extend({
   why_it_matters: z.string().optional(),
@@ -21,5 +21,3 @@ export type WeeklyDataWithWhy = z.infer<typeof WeeklyDataWithWhySchema>;
 
 export const SECTION_KEYS = ['industry', 'research', 'opportunities', 'discussions'] as const;
 export type SectionKey = (typeof SECTION_KEYS)[number];
-
-export { Section };

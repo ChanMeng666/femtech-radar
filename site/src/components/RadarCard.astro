@@ -1,11 +1,12 @@
 ---
 import type { RadarItemWithWhy } from '../lib/schema';
 import { stripHtml, truncate } from '../lib/strip-html';
+import { safeISODate } from '../lib/content';
 
 interface Props { item: RadarItemWithWhy; }
 const { item } = Astro.props;
 const summary = truncate(stripHtml(item.summary), 220);
-const date = new Date(item.published_at).toISOString().slice(0, 10);
+const date = safeISODate(item.published_at);
 ---
 <article class="card">
   <h3><a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a></h3>

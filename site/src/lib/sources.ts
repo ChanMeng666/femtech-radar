@@ -11,6 +11,6 @@ export interface ConfiguredSource {
 export const CONFIGURED_SOURCES: ConfiguredSource[] = [
   { section: 'industry', name: 'Google News', detail: 'FemTech / women’s-health news query (RSS).', status: 'live' },
   { section: 'research', name: 'arXiv', detail: 'q-bio / cs.CY + women’s-health keyword search.', status: 'live' },
-  { section: 'opportunities', name: '—', detail: 'No adapter yet; arriving in v2.', status: 'planned' },
-  { section: 'discussions', name: '—', detail: 'No adapter yet; arriving in v2.', status: 'planned' },
+  { section: 'opportunities', name: 'LinkedIn', detail: 'Women-in-tech / FemTech job postings (LinkedIn guest search).', status: 'live' },
+  { section: 'discussions', name: 'Hacker News', detail: 'FemTech / women-in-tech discussion (HN Algolia search).', status: 'live' },
 ];

@@ -11,7 +11,9 @@ const ENTITIES: Record<string, string> = {
 export function stripHtml(input: string): string {
   return input
     .replace(/<[^>]*>/g, ' ')
-    .replace(/&#?\w+;/g, (m) => ENTITIES[m] ?? ' ')
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
+    .replace(/&\w+;/g, (m) => ENTITIES[m] ?? ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }

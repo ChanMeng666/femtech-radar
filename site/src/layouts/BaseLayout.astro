@@ -5,6 +5,7 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/600.css';
 import '../styles/global.css';
 import { withBase } from '../lib/with-base';
+import { SECTION_KEYS } from '../lib/schema';
 
 interface Props {
   title: string;
@@ -19,7 +20,11 @@ const { title, description = 'A weekly, curated digest of FemTech industry news 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="alternate" type="application/rss+xml" title="FemTech Radar" href={withBase('/rss.xml')} />
+    {SECTION_KEYS.map((s) => (
+      <link rel="alternate" type="application/rss+xml" title={`FemTech Radar — ${s}`} href={withBase(`/rss/${s}.xml`)} />
+    ))}
   </head>
   <body>
     <header class="site-header">
