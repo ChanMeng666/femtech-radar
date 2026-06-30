@@ -19,13 +19,13 @@ test("collect dedupes and returns items sorted by score", async () => {
   expect(warnings).toEqual([]);
 });
 
-test("collect returns a warning for a section with no adapter", async () => {
+test("collect surfaces a warning when the discussions adapter receives invalid JSON", async () => {
   const { items, warnings } = await collect({
     section: "discussions", since: new Date("2026-06-01T00:00:00Z"),
     limit: 10, now: new Date("2026-06-30T00:00:00Z"), fetcher: async () => "",
   });
   expect(items).toEqual([]);
-  expect(warnings[0]).toMatch(/no adapter/);
+  expect(warnings[0]).toMatch(/discussions adapter failed/);
 });
 
 test("collect surfaces a warning (and empty items) when the source fails", async () => {

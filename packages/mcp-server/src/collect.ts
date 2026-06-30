@@ -4,6 +4,7 @@ import type { Adapter, Fetcher } from "./adapters/types.js";
 import { industryAdapter } from "./adapters/industry.js";
 import { researchAdapter } from "./adapters/research.js";
 import { opportunitiesAdapter } from "./adapters/opportunities.js";
+import { discussionsAdapter } from "./adapters/discussions.js";
 
 export const httpFetcher: Fetcher = async (url, init): Promise<string> => {
   const ctrl = new AbortController();
@@ -24,7 +25,7 @@ export const ADAPTERS: Record<Section, Adapter | null> = {
   industry: industryAdapter,
   research: researchAdapter,
   opportunities: opportunitiesAdapter,
-  discussions: null,
+  discussions: discussionsAdapter,
 };
 
 export async function collect(args: {
