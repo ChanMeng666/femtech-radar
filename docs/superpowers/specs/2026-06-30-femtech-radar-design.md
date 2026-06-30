@@ -175,17 +175,22 @@ femtech-radar/
 
 Key insight: **as a public OSS repo, Actions and Pages are free and unlimited** — Pro's 3,000-minute Actions quota never binds; the weekly workflow + deploy cost nothing. The only metered resource is **Copilot AI credits** (usage-based since 2026-06), and a weekly cadence (~4 runs/month) keeps that minimal.
 
-| Resource | How femtech-radar exploits it |
-|---|---|
-| Actions (free/unlimited for public repos) | Weekly workflow + Pages deploy + CI tests, all free |
-| Pages (free for public repos) | Hosts the Astro site; custom domain optional |
-| Copilot Pro (gh aw engine; separate subscription) | Drives agent curation; low weekly consumption. **Prerequisite — confirm Copilot Pro is active.** |
-| Codespaces (Pro ~180 core-h/mo) | Cloud dev for MCP/Astro without local setup |
-| Packages / Container Registry (Pro 2 GB) | Optional mirror publish of the MCP package/container |
-| CodeQL + Dependabot (free for public repos) | Security scan + dependency updates on the MCP npm package → OSS credibility |
-| GitHub Models (free inference allowance) | Optional alternative/comparison engine (gh aw supports multiple engines) |
+**Live account data (measured 2026-06-30 via `gh api`, with `user` scope):**
+- **Plan:** GitHub **Pro** (confirmed). Git storage allowance ~931 GB (≈3.3 GB used), unlimited private repos (26 owned), 7 collaborators.
+- **Actions (private-repo billable minutes):** Linux usage averaged **~1,209 min/month** over H1 2026 against Pro's 3,000 included → **~1,790 min/month spare**. Public repos are not metered, so femtech-radar (public) costs **$0** regardless.
+- **Copilot:** **active** — billing switched from "Premium Request" to "**AI Credits**" in 2026-06 (195 credits that month, net $0, within allowance). The `gh aw` engine prerequisite is **satisfied**.
+- **Overages:** every 2026 line item is fully discounted (net $0) — no overspend; ample headroom.
 
-> **TODO (pending `user` scope):** run `gh auth refresh -h github.com -s user`, then record exact live quotas for Actions minutes, shared storage, packages, and confirm Copilot plan tier. Fill precise numbers here.
+| Resource | Live status | How femtech-radar exploits it |
+|---|---|---|
+| Actions | ~1,790 min/mo spare (private); free/unlimited (public) | Weekly workflow + Pages deploy + CI tests, all free on a public repo |
+| Pages | free (public repos) | Hosts the Astro site; custom domain optional |
+| Copilot | active, AI-Credits model, within allowance | Drives agent curation; low weekly consumption |
+| Git storage | ~931 GB allowance, ~3.3 GB used | Effectively unbounded for this repo |
+| Codespaces (Pro ~180 core-h/mo) | included | Cloud dev for MCP/Astro without local setup |
+| Packages / Container Registry (Pro 2 GB) | included | Optional mirror publish of the MCP package/container |
+| CodeQL + Dependabot | free (public repos) | Security scan + dependency updates on the MCP npm package → OSS credibility |
+| GitHub Models | free inference allowance | Optional alternative/comparison engine (gh aw supports multiple engines) |
 
 ## 9. Testing Strategy
 
@@ -212,6 +217,6 @@ Key insight: **as a public OSS repo, Actions and Pages are free and unlimited** 
 
 ## 12. Open Questions / Assumptions
 
-- Assumes Copilot Pro is active on the account (required by `gh aw`). To confirm.
+- ~~Assumes Copilot Pro is active on the account (required by `gh aw`).~~ **Confirmed active** (2026-06 AI-Credits usage, net $0) — see §8.
 - Exact source list per adapter to be finalized during implementation planning (v1 needs only industry + research).
 - Auto-merge deferred to v2; v1 uses manual PR merge as the quality gate.
