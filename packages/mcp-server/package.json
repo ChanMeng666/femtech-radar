@@ -6,6 +6,7 @@
   "repository": { "type": "git", "url": "https://github.com/ChanMeng666/femtech-radar" },
   "type": "module",
   "license": "MIT",
+  "publishConfig": { "access": "public" },
   "bin": { "femtech-radar-mcp": "dist/index.js" },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,7 +15,8 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",
     "test": "vitest run",
-    "dev": "vitest"
+    "dev": "vitest",
+    "prepublishOnly": "pnpm run build && pnpm run test"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
