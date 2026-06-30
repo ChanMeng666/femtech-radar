@@ -9,6 +9,7 @@ export const httpFetcher: Fetcher = async (url: string): Promise<string> => {
   const t = setTimeout(() => ctrl.abort(), 10_000);
   try {
     const res = await fetch(url, { signal: ctrl.signal, headers: { "user-agent": "femtech-radar" } });
+    if (!res.ok) throw new Error(`HTTP ${res.status} from ${url}`);
     return await res.text();
   } finally {
     clearTimeout(t);
