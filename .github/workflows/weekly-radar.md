@@ -4,7 +4,9 @@ on:
   schedule:
     - cron: "0 8 * * 1"   # Mondays 08:00 UTC
   workflow_dispatch:
-engine: copilot
+engine:
+  id: copilot
+  model: gpt-4o
 permissions:
   contents: read
   issues: read
