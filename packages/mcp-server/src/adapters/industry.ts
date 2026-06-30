@@ -3,6 +3,7 @@ import type { RadarItem } from "../schema.js";
 import { scoreItem } from "../score.js";
 import type { Adapter, CollectOpts } from "./types.js";
 import { hashId } from "./utils.js";
+import { decodeGoogleNewsURL } from "./gnews-url.js";
 
 const GOOGLE_NEWS = "https://news.google.com/rss/search";
 const parser = new XMLParser();
@@ -16,7 +17,7 @@ export const industryAdapter: Adapter = {
     const ch = parser.parse(xml)?.rss?.channel;
     const items = ch?.item ? (Array.isArray(ch.item) ? ch.item : [ch.item]) : [];
     return items.slice(0, limit).map((e: Record<string, string>): RadarItem => {
-      const itemUrl = String(e.link);
+      const itemUrl = decodeGoogleNewsURL(String(e.link));
       const title = String(e.title).trim();
       const summary = String(e.description ?? "").trim();
       const published_at = new Date(String(e.pubDate)).toISOString();
