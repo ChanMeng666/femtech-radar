@@ -1,0 +1,79 @@
+{
+  "week": "2026-W27",
+  "generated_at": "2026-06-30T09:43:51+00:00",
+  "editor_note": "This week, the FemTech landscape highlights regulatory shifts, expanded access, and new research tools. Industry news covers FDA headlines, access challenges, and community-driven health initiatives. Research advances include open benchmarks for maternal health AI and robust, on-device tools for midwives. These developments reflect a growing focus on practical, equitable solutions for women's health worldwide.",
+  "sections": {
+    "industry": [
+      {
+        "id": "66771f0e39eebd7f",
+        "section": "industry",
+        "title": "5 women's health FDA headlines you missed in Q2 2026 - Contemporary OB/GYN",
+        "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPMjBCT2FXaHhxMGhwWXFJSlNDbU9ITHRhVTR5cGF0eXpaMFJpLWxUSzItYmV5aV9XeE52TnkxQS1tLXJucjhCQWM0T2hubF8ybUd1bzJHNVZWLTdtTFJSOFdiQVpvX0RsWExVRTdac2FHWjFEb3poUkNQWFVyNG5aNHlhbHFBc2k3cmc?oc=5",
+        "source": "Google News",
+        "summary": "<a href=\"https://news.google.com/rss/articles/CBMiigFBVV95cUxPMjBCT2FXaHhxMGhwWXFJSlNDbU9ITHRhVTR5cGF0eXpaMFJpLWxUSzItYmV5aV9XeE52TnkxQS1tLXJucjhCQWM0T2hubF8ybUd1bzJHNVZWLTdtTFJSOFdiQVpvX0RsWExVRTdac2FHWjFEb3poUkNQWFVyNG5aNHlhbHFBc2k3cmc?oc=5\" target=\"_blank\">5 women's health FDA headlines you missed in Q2 2026</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Contemporary OB/GYN</font>",
+        "score": 39,
+        "published_at": "2026-06-29T20:33:05.000Z",
+        "why_it_matters": "Regulatory updates from the FDA directly impact the development and availability of FemTech solutions, informing practitioners about new opportunities and compliance requirements."
+      },
+      {
+        "id": "ac824b2a67461943",
+        "section": "industry",
+        "title": "OBBBA is Threatening Women’s Health Care Access - National Partnership for Women & Families",
+        "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxObEFzbnVlVlZtMGdVeTByaE5qTTZuOGREYkR6YU9yRlNPa283S2VoYVBPWUYwMVM4MmdqZk9Xb0Z1WldSc1ViekQ1MkdIek15dW12bHl1eWI3VlpnbmxPNk1ZYm1kLXBOcnRDcFhabHlwY1lVVnQ3d0REMjhfRDNOX2o0TTFVYTBadEtZclVsNA?oc=5",
+        "source": "Google News",
+        "summary": "<a href=\"https://news.google.com/rss/articles/CBMijwFBVV95cUxObEFzbnVlVlZtMGdVeTByaE5qTTZuOGREYkR6YU9yRlNPa283S2VoYVBPWUYwMVM4MmdqZk9Xb0Z1WldSc1ViekQ1MkdIek15dW12bHl1eWI3VlpnbmxPNk1ZYm1kLXBOcnRDcFhabHlwY1lVVnQ3d0REMjhfRDNOX2o0TTFVYTBadEtZclVsNA?oc=5\" target=\"_blank\">OBBBA is Threatening Women’s Health Care Access</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">National Partnership for Women & Families</font>",
+        "score": 23,
+        "published_at": "2026-06-30T02:56:38.000Z",
+        "why_it_matters": "Policy changes that restrict access to care can have far-reaching effects on women's health equity and the FemTech market."
+      },
+      {
+        "id": "858fce86c12a424d",
+        "section": "industry",
+        "title": "King’s Passion for Women’s Health Begins with Family, Grows at AAMU - aamu.edu",
+        "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1RbGVBa2pHa0JQUXpsNk8zTWx1bXdhQzdmbDRhTFMtMkxKak1nNmNRNkVWOGN1RlhzVzlNVnBKOEdBdVF6YUZxdExvR3dDTUZwck9IcWtpRVNFanBKNUpZZnBzQkdlXzZxdElwNUs4RzJOUHVR?oc=5",
+        "source": "Google News",
+        "summary": "<a href=\"https://news.google.com/rss/articles/CBMidEFVX3lxTE1RbGVBa2pHa0JQUXpsNk8zTWx1bXdhQzdmbDRhTFMtMkxKak1nNmNRNkVWOGN1RlhzVzlNVnBKOEdBdVF6YUZxdExvR3dDTUZwck9IcWtpRVNFanBKNUpZZnBzQkdlXzZxdElwNUs4RzJOUHVR?oc=5\" target=\"_blank\">King’s Passion for Women’s Health Begins with Family, Grows at AAMU</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">aamu.edu</font>",
+        "score": 23,
+        "published_at": "2026-06-30T08:13:37.000Z",
+        "why_it_matters": "Personal stories and academic leadership inspire future practitioners and highlight the importance of community-driven health initiatives."
+      }
+    ],
+    "research": [
+      {
+        "id": "1fd96422f24651cd",
+        "section": "research",
+        "title": "mamabench and mamaretrieval: Benchmarks for Evaluating Medical Retrieval-Augmented Generation in Maternal, Neonatal, and Reproductive Health",
+        "url": "http://arxiv.org/abs/2606.29467v1",
+        "source": "arXiv",
+        "summary": "Medical question-answering benchmarks rarely cover the maternal, neonatal, child, and reproductive-health questions a nurse-midwife asks, and, to our knowledge, no public chunk-level relevance benchmark exists for maternal-health guideline retrieval. We release two benchmarks that fill these gaps. mamabench is a scope-filtered QA set of 25,949 items assembled from seven existing expert-authored sources across multiple-choice, short-answer, and rubric-graded tracks; to help users calibrate the LLM judge that scores the rubric track, we re-scope HealthBench's physician-labelled meta-evaluation to the domain. mamaretrieval pairs 3,185 clinical queries with graded (0-6) relevance labels over a 63,650-chunk maternal-health guideline corpus, using a decomposed rubric that distinguishes a chunk that answers a query from one merely on its topic. Three decisions shape both: assemble and filter expert sources rather than author questions, grade relevance rather than binarise it, and measure and disclose the limits of the labels -- scope-classifier agreement, a frontier-judge check, and a pooling-completeness audit -- rather than treat them as an oracle. A companion paper uses the benchmarks to evaluate a deployed on-device assistant; both are released openly for research.",
+        "score": 55,
+        "published_at": "2026-06-28T15:51:53Z",
+        "why_it_matters": "Open benchmarks for maternal health AI enable more robust, transparent, and equitable evaluation of tools that can impact care quality for women and children."
+      },
+      {
+        "id": "164ebff4a0203c17",
+        "section": "research",
+        "title": "MAM-AI: An On-Device Medical Retrieval-Augmented Generation System for Nurses and Midwives in Zanzibar",
+        "url": "http://arxiv.org/abs/2606.29580v1",
+        "source": "arXiv",
+        "summary": "Maternal and newborn mortality remain among the highest in sub-Saharan Africa, where midwifery care is often delivered by nurses who lack midwifery training to international standards, and consulting authoritative guidance at the point of care is hard: the guidelines are long and connectivity is intermittent. We present MAM-AI, a medical question-answering assistant for nurse-midwives in Zanzibar that runs entirely on a commodity Android device: a question is embedded (EmbeddingGemma, 300M) and matched against a curated corpus of 87 guideline documents (63,650 passages), then answered with citations by a 4B int4 generator (Gemma 4 E4B), fully offline, with no query leaving the device. We evaluate the exact deployed configuration with a layered methodology -- retriever, generator under oracle context, end-to-end, and latency -- scored by LLM judges validated against physician rubrics. The evaluation relocates the hard problem. On-device retrieval is essentially solved: the 300M embedder ranks third of seven retrievers and rivals cloud systems, so the passages the system needs are usually found. The small generator is what remains in doubt: adding retrieved context does not improve its answers, and at 4B it cannot be both helpful and safe at once -- of two same-size candidates, the more helpful one commits genuine dangerous errors, so we deploy the other, which is about twice as faithful to its sources (as faithful as a frontier model), and recover its helpfulness with a redesigned prompt that cuts deflection from 33% to 3%. Corpus quality is decisive for the same reason: where the corpus holds the right passage the answer is specific and actionable, and where it does not it goes vague. MAM-AI is a thoroughly evaluated, open-source research prototype, not a fielded product; the system, knowledge base, benchmarks, and evaluation harness are released.",
+        "score": 39,
+        "published_at": "2026-06-28T19:52:04Z",
+        "why_it_matters": "Deploying robust, offline AI tools for midwives in low-resource settings can directly improve maternal and newborn outcomes, bridging gaps in care."
+      },
+      {
+        "id": "8630f1f687d48890",
+        "section": "research",
+        "title": "Dual Agreement Consistency Learning for Semi-Supervised Fetal Ultrasound Segmentation",
+        "url": "http://arxiv.org/abs/2606.25254v1",
+        "source": "arXiv",
+        "summary": "Maternal-fetal US is the primary imaging modality for monitoring fetal development, yet accurate automated segmentation remains challenging due to the scarcity of pixel-level annotations. To address this issue, we propose DACL, a semi-supervised framework for robust fetal US image segmentation. DACL jointly trains a deployment-oriented lightweight convolutional network (1.47\\thinsp\\mathrm{M} parameters) and a Transformer-based network, leveraging labeled data for supervised learning and unlabeled data via CPS. To enhance prediction stability, we introduce a dual-agreement consistency loss that couples pixel-wise probabilistic divergence with entropy-guided confidence alignment. Unlike conventional CPS methods that enforce agreement only at the prediction level, DACL explicitly regularizes both distributional alignment and uncertainty, thereby suppressing unreliable pseudo-labels and enabling stable cross-architecture pseudo-label learning under extreme annotation scarcity. Furthermore, an interpolation-based consistency strategy using mixup is applied to unlabeled samples to enhance robustness. Under 5% labeled data, DACL improves Dice by up to 2.77% and reduces HD95 by up to 14.69 mm compared with the strongest recent semi-supervised methods, demonstrating significant improvements in boundary accuracy on both fetal head and abdomen datasets. These results demonstrate the effectiveness of agreement-based consistency learning for annotation-efficient fetal US segmentation. Our code is on GitHub.",
+        "score": 35,
+        "published_at": "2026-06-24T00:26:00Z",
+        "why_it_matters": "Advances in annotation-efficient ultrasound AI can make fetal monitoring more accessible and accurate, especially in resource-limited settings."
+      }
+    ],
+    "opportunities": [],
+    "discussions": []
+  }
+}
