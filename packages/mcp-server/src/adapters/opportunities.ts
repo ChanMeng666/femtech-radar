@@ -300,7 +300,7 @@ async function collectSerpApi({ limit, now, fetcher, keywords }: CollectOpts): P
   url.searchParams.set("api_key", apiKey);
 
   const raw = JSON.parse(await fetcher(url.toString())) as { jobs_results?: SerpJob[] };
-  const jobs: SerpJob[] = raw.jobs_results ?? [];
+  const jobs: SerpJob[] = (raw.jobs_results ?? []).filter(j => !!(j.apply_options?.[0]?.link));
 
   return jobs.slice(0, limit).map((j): RadarItem => {
     const jobUrl = j.apply_options?.[0]?.link ?? "";
@@ -333,10 +333,11 @@ const BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 async function collectLinkedIn({ limit, now, fetcher, keywords }: CollectOpts): Promise<RadarItem[]> {
   const url = buildSearchUrl(buildQueryOptions({ keyword: LINKEDIN_QUERY, dateSincePosted: "past week", limit }));
   const html = await fetcher(url, { headers: { "user-agent": BROWSER_UA, "accept": "text/html" } });
-  const jobs = parseJobListings(html);
+  const jobs = parseJobListings(html).filter(j => !!j.jobUrl);
   return jobs.slice(0, limit).map((j): RadarItem => {
     const summary = [j.company, j.location, j.salary].filter(Boolean).join(" · ");
-    const published_at = j.date ? new Date(j.date).toISOString() : now.toISOString();
+    const d = new Date(j.date);
+    const published_at = j.date && !Number.isNaN(d.getTime()) ? d.toISOString() : now.toISOString();
     return {
       id: hashId(j.jobUrl), section: "opportunities", title: j.position, url: j.jobUrl,
       source: "LinkedIn", summary,
