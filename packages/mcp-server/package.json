@@ -6,15 +6,21 @@
   "repository": { "type": "git", "url": "https://github.com/ChanMeng666/femtech-radar" },
   "type": "module",
   "license": "MIT",
+  "publishConfig": { "access": "public" },
   "bin": { "femtech-radar-mcp": "dist/index.js" },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./schema": { "types": "./dist/schema.d.ts", "import": "./dist/schema.js" }
+  },
   "files": ["dist"],
   "engines": { "node": ">=20" },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts --clean",
+    "build": "tsup src/index.ts src/schema.ts --format esm --dts --clean",
     "test": "vitest run",
-    "dev": "vitest"
+    "dev": "vitest",
+    "prepublishOnly": "pnpm run build && pnpm run test"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",

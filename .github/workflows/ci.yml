@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+jobs:
+  test-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @chanmeng666/femtech-radar-mcp build
+      - name: Test the data validator
+        run: pnpm exec vitest run scripts/validate-data.test.mjs
+      - run: pnpm --filter @chanmeng666/femtech-radar-mcp test
+      - name: Validate committed data files
+        run: |
+          if ls data/*.json >/dev/null 2>&1; then node scripts/validate-data.mjs; else echo "no data files yet"; fi
