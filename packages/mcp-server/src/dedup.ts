@@ -8,6 +8,7 @@ export function canonicalUrl(url: string): string {
     if (k.toLowerCase().startsWith("utm_") || k.toLowerCase() === "fbclid") u.searchParams.delete(k);
   }
   let s = u.toString();
+  // strip trailing slash before query string or at end of path
   s = s.replace(/\/(\?|$)/, "$1").replace(/\?$/, "");
   return s;
 }

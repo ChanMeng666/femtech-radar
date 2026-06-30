@@ -33,3 +33,16 @@ test("dedupe drops near-duplicate titles", () => {
   expect(out).toHaveLength(1);
   expect(out[0].id).toBe("2");
 });
+
+test("canonicalUrl drops fbclid param", () => {
+  expect(canonicalUrl("https://a.test/page?fbclid=abc123&keep=1"))
+    .toBe("https://a.test/page?keep=1");
+});
+
+test("dedupe keeps items whose titles are below the similarity threshold", () => {
+  const out = dedupe([
+    mk({ id: "1", url: "https://x.test/a", title: "FemTech funding news" }),
+    mk({ id: "2", url: "https://y.test/b", title: "Completely unrelated database benchmark" }),
+  ]);
+  expect(out).toHaveLength(2);
+});
