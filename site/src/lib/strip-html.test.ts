@@ -9,6 +9,9 @@ describe('stripHtml', () => {
   test('leaves plain text intact', () => {
     expect(stripHtml('A plain abstract.')).toBe('A plain abstract.');
   });
+  test('decodes decimal and hex numeric entities', () => {
+    expect(stripHtml("Tom&#39;s &#x27;quote&#x27; &amp; more")).toBe("Tom's 'quote' & more");
+  });
 });
 
 describe('truncate', () => {
