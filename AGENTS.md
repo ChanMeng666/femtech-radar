@@ -96,7 +96,7 @@ femtech-radar/
 `data/YYYY-Www.json` (ISO week key, e.g. `2026-W27`) validates against `WeeklyData`:
 ```jsonc
 { "week", "generated_at", "editor_note",
-  "sections": { "industry": RadarItem[], "research": RadarItem[], "opportunities": [], "discussions": [] } }
+  "sections": { "industry": RadarItem[], "research": RadarItem[], "opportunities": RadarItem[], "discussions": RadarItem[] } }
 ```
 `RadarItem`: `{ id, section, title, url, source, summary, score(0–100), published_at, raw_metrics? }`.
 Unit ② additionally writes a `why_it_matters` string on each item (the editorial payload). All four

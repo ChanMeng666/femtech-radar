@@ -155,7 +155,7 @@ safe-outputs:
 
 The site **reads only `data/` and depends on no runtime API** ⇒ pure static, fast, resilient to GitHub-API flakiness.
 
-> **Update (2026-07-01):** per-section RSS feeds at `/rss/<section>.xml` are now live alongside `/rss.xml`.
+> **Update (2026-07-01):** per-section RSS feeds at `/rss/<section>.xml` are now live alongside `/rss.xml`. Opportunities and discussions adapters are ready (LinkedIn/Hacker News; SerpAPI optional for opportunities).
 
 ## 7. Repository Structure (pnpm monorepo)
 
