@@ -20,3 +20,9 @@ jobs:
       - name: Validate committed data files
         run: |
           if ls data/*.json >/dev/null 2>&1; then node scripts/validate-data.mjs; else echo "no data files yet"; fi
+      - name: Type-check the site
+        run: pnpm --filter femtech-radar-site exec astro check
+      - name: Unit-test the site
+        run: pnpm --filter femtech-radar-site test
+      - name: Build the site
+        run: pnpm --filter femtech-radar-site build
