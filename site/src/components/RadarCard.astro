@@ -1,0 +1,20 @@
+---
+import type { RadarItemWithWhy } from '../lib/schema';
+import { stripHtml, truncate } from '../lib/strip-html';
+
+interface Props { item: RadarItemWithWhy; }
+const { item } = Astro.props;
+const summary = truncate(stripHtml(item.summary), 220);
+const date = new Date(item.published_at).toISOString().slice(0, 10);
+---
+<article class="card">
+  <h3><a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a></h3>
+  {item.why_it_matters && <p class="why">{item.why_it_matters}</p>}
+  {summary && <p class="summary">{summary}</p>}
+  <div class="meta">
+    <span class="score">{item.score}</span>
+    <span>{item.source}</span>
+    <span>·</span>
+    <span>{date}</span>
+  </div>
+</article>

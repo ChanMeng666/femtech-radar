@@ -1,0 +1,47 @@
+---
+import '@fontsource/fraunces/400.css';
+import '@fontsource/fraunces/600.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/600.css';
+import '../styles/global.css';
+import { withBase } from '../lib/with-base';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'A weekly, curated digest of FemTech industry news and women’s-health research.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="alternate" type="application/rss+xml" title="FemTech Radar" href={withBase('/rss.xml')} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href={withBase('/')}>FemTech Radar</a>
+        <nav class="nav">
+          <a href={withBase('/')}>Latest</a>
+          <a href={withBase('/archive')}>Archive</a>
+          <a href={withBase('/sources')}>Sources</a>
+          <a href={withBase('/rss.xml')}>RSS</a>
+        </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>FemTech Radar — curated by an MCP &times; GitHub Agentic Workflow pipeline. Built by
+          <a href="https://github.com/ChanMeng666">Chan Meng</a>.
+          <a href={withBase('/rss.xml')}>Subscribe via RSS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

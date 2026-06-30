@@ -1,0 +1,46 @@
+:root {
+  --bg: #fffaf5;
+  --surface: #ffffff;
+  --ink: #2b2024;
+  --muted: #6b5d63;
+  --rose: #d6336c;
+  --rose-soft: #ffe3ee;
+  --border: #f0e3da;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(43, 32, 36, .04), 0 8px 24px rgba(43, 32, 36, .06);
+  --industry: #e8590c;
+  --research: #7048e8;
+  --opportunities: #0ca678;
+  --discussions: #1c7ed6;
+  --maxw: 64rem;
+}
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6;
+}
+h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; line-height: 1.15; }
+a { color: var(--rose); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
+.site-header { border-bottom: 1px solid var(--border); background: var(--surface); }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; padding-bottom: 1rem; }
+.brand { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.25rem; color: var(--ink); }
+.nav a { color: var(--muted); margin-left: 1rem; font-size: .95rem; }
+.editor-note { background: var(--rose-soft); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+.section { margin: 2.5rem 0; }
+.section-head { display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; }
+.section-dot { width: .65rem; height: .65rem; border-radius: 50%; }
+.cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .55rem; }
+.card h3 { margin: 0; font-size: 1.05rem; }
+.card .why { color: var(--ink); }
+.card .summary { color: var(--muted); font-size: .92rem; }
+.meta { display: flex; align-items: center; gap: .5rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; color: var(--muted); }
+.score { font-family: ui-monospace, monospace; font-weight: 600; background: var(--rose-soft); color: var(--rose); border-radius: 999px; padding: .05rem .5rem; }
+.empty { color: var(--muted); font-style: italic; }
+.site-footer { border-top: 1px solid var(--border); margin-top: 4rem; padding: 2rem 0; color: var(--muted); font-size: .9rem; }
