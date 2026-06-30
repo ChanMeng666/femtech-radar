@@ -1,0 +1,30 @@
+{
+  "name": "@chanmeng666/femtech-radar-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that fetches, dedupes, and scores FemTech industry & research items.",
+  "keywords": ["mcp", "femtech", "model-context-protocol", "arxiv", "news"],
+  "repository": { "type": "git", "url": "https://github.com/ChanMeng666/femtech-radar" },
+  "type": "module",
+  "license": "MIT",
+  "bin": { "femtech-radar-mcp": "dist/index.js" },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "test": "vitest run",
+    "dev": "vitest"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "fast-xml-parser": "^4.4.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  }
+}
