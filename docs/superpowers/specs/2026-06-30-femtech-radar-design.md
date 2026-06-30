@@ -155,6 +155,8 @@ safe-outputs:
 
 The site **reads only `data/` and depends on no runtime API** ⇒ pure static, fast, resilient to GitHub-API flakiness.
 
+> **Update (2026-07-01):** per-section RSS feeds at `/rss/<section>.xml` are now live alongside `/rss.xml`.
+
 ## 7. Repository Structure (pnpm monorepo)
 
 ```
@@ -206,6 +208,8 @@ Key insight: **as a public OSS repo, Actions and Pages are free and unlimited** 
 | **v1 (end-to-end)** | MCP with **industry + research** adapters + collect/dedup/score; weekly workflow producing data PR + summary issue; Astro home/archive/RSS; manual PR merge |
 | **v2 (complete + community)** | Add opportunities + discussions adapters; ChatOps `/deep-dive <topic>`; auto-merge; per-section RSS; **publish MCP to npm** |
 | **v3 (polish)** | Theming / subscribe page / analytics; full bilingual; talk/blog output |
+
+> **Update (2026-07-01):** the v2 source adapters and per-section RSS are now complete. `opportunities` uses LinkedIn Jobs (free guest endpoint) as the default; SerpAPI Google Jobs (`serpapi.com`) is an opt-in alternative activated by setting the `SERP_API_KEY` env var — it is **not** the default. `discussions` uses the Hacker News Algolia search API (free, no key). The weekly workflow now collects all four sections. ChatOps (`/deep-dive`) and auto-merge remain deferred.
 
 ## 11. Costs & Risks
 
