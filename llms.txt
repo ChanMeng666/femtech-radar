@@ -1,0 +1,24 @@
+# femtech-radar
+
+> Agent-first FemTech intelligence: an MCP server that fetches, dedupes, and scores women's-health & FemTech research and industry news, designed to feed GitHub Agentic Workflows and an auto-updating Astro + RSS site.
+
+This file follows the [llms.txt](https://llmstxt.org/) convention: a concise, machine-readable map
+of the project for large language models and AI agents.
+
+## About
+
+- Repository: https://github.com/ChanMeng666/femtech-radar
+- Primary stack: Node.js / JavaScript
+- License: MIT
+
+## Key documents
+
+- [README](https://github.com/ChanMeng666/femtech-radar/blob/feat/v1-mcp-server/README.md): overview, features, installation, usage
+- [AGENTS.md](https://github.com/ChanMeng666/femtech-radar/blob/feat/v1-mcp-server/AGENTS.md): how AI agents should work in this repo
+- [CONTRIBUTING](https://github.com/ChanMeng666/femtech-radar/blob/feat/v1-mcp-server/CONTRIBUTING.md): development setup and contribution workflow
+- [CHANGELOG](https://github.com/ChanMeng666/femtech-radar/blob/feat/v1-mcp-server/CHANGELOG.md): version history
+
+## For agents
+
+To work effectively here: read the README and AGENTS.md first, then follow the commands and
+conventions they describe. Prefer the project's own scripts over ad-hoc commands.
