@@ -12,13 +12,14 @@ function relevance(text: string, keywords: string[]): number {
 }
 
 function popularityScore(popularity: number): number {
+  // floor at 1 ensures at least log(2)/3 score from any input
   return Math.min(1, Math.log10(Math.max(1, popularity) + 1) / 3); // ~1000 saturates
 }
 
 function freshness(published_at: string, now: Date): number {
   const ageDays = (now.getTime() - new Date(published_at).getTime()) / 86_400_000;
   if (Number.isNaN(ageDays)) return 0;
-  return Math.max(0, 1 - ageDays / 30); // linear decay over 30 days
+  return Math.min(1, Math.max(0, 1 - ageDays / 30)); // linear decay over 30 days, capped at 1
 }
 
 export function scoreItem(input: {
