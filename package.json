@@ -8,10 +8,8 @@
     "build": "pnpm -r build",
     "validate-data": "node scripts/validate-data.mjs"
   },
-  "dependencies": {
-    "@chanmeng666/femtech-radar-mcp": "workspace:*"
-  },
   "devDependencies": {
+    "@chanmeng666/femtech-radar-mcp": "workspace:*",
     "vitest": "^2.0.0"
   },
   "pnpm": {

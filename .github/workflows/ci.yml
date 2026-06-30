@@ -14,6 +14,8 @@ jobs:
         with: { node-version: 20, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @chanmeng666/femtech-radar-mcp build
+      - name: Test the data validator
+        run: pnpm exec vitest run scripts/validate-data.test.mjs
       - run: pnpm --filter @chanmeng666/femtech-radar-mcp test
       - name: Validate committed data files
         run: |

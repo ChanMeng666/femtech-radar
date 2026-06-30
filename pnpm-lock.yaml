@@ -7,11 +7,10 @@ settings:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       '@chanmeng666/femtech-radar-mcp':
         specifier: workspace:*
         version: link:packages/mcp-server
-    devDependencies:
       vitest:
         specifier: ^2.0.0
         version: 2.1.9(@types/node@24.13.2)
