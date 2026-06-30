@@ -107,20 +107,29 @@ Expected: a JSON-RPC response to id:2 listing `radar_collect` and `radar_sources
 - Modify: root `package.json` (add a `validate-data` script + `vitest` devDep if absent)
 
 **Interfaces:**
-- Consumes: `WeeklyDataSchema` exported from `@chanmeng666/femtech-radar-mcp` (re-exported from the package root — see Step 1 note).
+- Consumes: `WeeklyDataSchema` from the **side-effect-free subpath** `@chanmeng666/femtech-radar-mcp/schema` (NOT the package root — see Step 1).
 - Produces: `validateDataFile(path: string): { ok: true } | { ok: false, errors: string[] }` and a CLI that validates every `data/*.json`, exiting non-zero on any failure.
 
-> Note: `WeeklyDataSchema` must be importable from the package root. In Plan 1 it lives in `src/schema.ts` and the package main is `dist/index.js` (server entry), which does NOT re-export it. **Step 1 of this task fixes that** by re-exporting the schema from the package entry so consumers (this validator and Plan 3's site) can import it.
+> Note: `src/schema.ts` (the `WeeklyDataSchema`) must be importable WITHOUT side effects. The package root entry `src/index.ts` runs the stdio server (`await server.connect(...)`) at import time, so importing the schema from the root would boot the MCP server. Therefore expose `src/schema.ts` as a separate export subpath `./schema`. Consumers (this validator, Plan 3's site) import `@chanmeng666/femtech-radar-mcp/schema`.
 
-- [ ] **Step 1: Re-export the schema from the MCP package entry, rebuild, republish-or-link**
+- [ ] **Step 1: Expose the schema as a side-effect-free subpath export**
 
-Add to `packages/mcp-server/src/index.ts` (top level, before `server.connect`):
-```ts
-export { WeeklyDataSchema, RadarItemSchema, Section } from "./schema.js";
-export type { WeeklyData, RadarItem } from "./schema.js";
+Do NOT add exports to `src/index.ts` (it boots the server on import). Instead, build `src/schema.ts` as a second entry and map it as a subpath.
+
+In `packages/mcp-server/package.json`, add an `exports` map (alongside the existing `main`/`bin`) and update the `build` script to emit both entries:
+```json
+"exports": {
+  ".": "./dist/index.js",
+  "./schema": "./dist/schema.js"
+},
+"scripts": {
+  "build": "tsup src/index.ts src/schema.ts --format esm --dts --clean",
+  "test": "vitest run",
+  "dev": "vitest",
+  "prepublishOnly": "pnpm run build && pnpm run test"
+}
 ```
-Then rebuild: `pnpm --filter @chanmeng666/femtech-radar-mcp build`.
-For local development the root validator imports via the workspace (`pnpm` symlinks the package), so no republish is needed to use it locally; the next published version will include the re-export. Commit this with Task 2's final commit.
+(Merge `exports` and the updated `build` into the existing object — keep `prepublishOnly` from Task 1.) Then rebuild: `pnpm --filter @chanmeng666/femtech-radar-mcp build` and confirm `dist/schema.js` + `dist/schema.d.ts` exist (`ls packages/mcp-server/dist`). The validator (Step 4) imports from the new subpath. `src/schema.ts` is pure (only Zod schema definitions), so the subpath has no side effects. Commit with Task 2's final commit.
 
 - [ ] **Step 2: Write the failing test**
 
@@ -157,7 +166,8 @@ Expected: FAIL — `./validate-data.mjs` not found.
 ```js
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { WeeklyDataSchema } from "@chanmeng666/femtech-radar-mcp";
+import { pathToFileURL } from "node:url";
+import { WeeklyDataSchema } from "@chanmeng666/femtech-radar-mcp/schema";
 
 export function validateData(obj) {
   const r = WeeklyDataSchema.safeParse(obj);
@@ -169,8 +179,8 @@ export function validateDataFile(path) {
   return validateData(JSON.parse(readFileSync(path, "utf8")));
 }
 
-// CLI: validate every data/*.json
-if (import.meta.url === `file://${process.argv[1]}`) {
+// CLI: validate every data/*.json (cross-platform main-module check)
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const dir = "data";
   const files = readdirSync(dir).filter((f) => f.endsWith(".json"));
   let failed = false;
@@ -199,9 +209,10 @@ Ensure root `package.json` has `vitest` in devDependencies (add `"vitest": "^2.0
 - [ ] **Step 7: Commit**
 
 ```bash
-git add packages/mcp-server/src/index.ts scripts/validate-data.mjs scripts/validate-data.test.mjs data/.gitkeep package.json pnpm-lock.yaml
+git add packages/mcp-server/package.json scripts/validate-data.mjs scripts/validate-data.test.mjs data/.gitkeep package.json pnpm-lock.yaml
 git commit -m "feat: add data-contract validator reusing WeeklyDataSchema"
 ```
+(Stage `packages/mcp-server/package.json` for the `exports`/`build` change — NOT `src/index.ts`, which is intentionally untouched — and root `package.json` for the validate-data script + vitest dep.)
 
 ---
 

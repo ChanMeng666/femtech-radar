@@ -3,3 +3,6 @@ dist/
 .astro/
 *.log
 .superpowers/
+
+# gh aw downloaded run logs (local diagnostics)
+.github/aw/logs/
