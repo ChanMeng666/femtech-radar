@@ -265,6 +265,65 @@ function parseJobListings(html: string): Job[] {
 }
 
 // ---------------------------------------------------------------------------
+// SerpAPI Google Jobs path (opt-in: active only when SERP_API_KEY is set)
+// ---------------------------------------------------------------------------
+
+const SERP_QUERY = 'femtech OR "women\'s health" OR "maternal health" OR "digital health"';
+const SERP_BASE = "https://serpapi.com/search";
+
+/** Parse a relative-time string like "2 days ago" / "5 hours ago" into an ISO timestamp. */
+function relativeToIso(postedAt: string, now: Date): string {
+  const m = postedAt.match(/^(\d+)\s+(hour|day|week|month)s?\s+ago$/i);
+  if (!m) return now.toISOString();
+  const n = parseInt(m[1], 10);
+  const unit = m[2].toLowerCase();
+  const ms = { hour: 36e5, day: 864e5, week: 6048e5, month: 2592e6 }[unit] ?? 0;
+  return new Date(now.getTime() - n * ms).toISOString();
+}
+
+interface SerpJob {
+  title?: string;
+  company_name?: string;
+  location?: string;
+  description?: string;
+  detected_extensions?: { posted_at?: string };
+  apply_options?: Array<{ link?: string }>;
+}
+
+async function collectSerpApi({ limit, now, fetcher, keywords }: CollectOpts): Promise<RadarItem[]> {
+  const apiKey = process.env.SERP_API_KEY as string;
+  const url = new URL(SERP_BASE);
+  url.searchParams.set("engine", "google_jobs");
+  url.searchParams.set("q", SERP_QUERY);
+  url.searchParams.set("chips", "date_posted:week");
+  url.searchParams.set("hl", "en");
+  url.searchParams.set("api_key", apiKey);
+
+  const raw = JSON.parse(await fetcher(url.toString())) as { jobs_results?: SerpJob[] };
+  const jobs: SerpJob[] = raw.jobs_results ?? [];
+
+  return jobs.slice(0, limit).map((j): RadarItem => {
+    const jobUrl = j.apply_options?.[0]?.link ?? "";
+    const title = j.title ?? "";
+    const desc = (j.description ?? "").slice(0, 200);
+    const summary = [j.company_name, j.location, desc].filter(Boolean).join(" · ");
+    const published_at = j.detected_extensions?.posted_at
+      ? relativeToIso(j.detected_extensions.posted_at, now)
+      : now.toISOString();
+    return {
+      id: hashId(jobUrl),
+      section: "opportunities",
+      title,
+      url: jobUrl,
+      source: "Google Jobs",
+      summary,
+      score: scoreItem({ title, summary, popularity: 0, published_at, now, keywords }),
+      published_at,
+    };
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Adapter
 // ---------------------------------------------------------------------------
 
@@ -289,8 +348,8 @@ async function collectLinkedIn({ limit, now, fetcher, keywords }: CollectOpts): 
 
 export const opportunitiesAdapter: Adapter = {
   section: "opportunities",
-  sources: ["LinkedIn"],
+  sources: ["LinkedIn", "Google Jobs"],
   async collect(opts: CollectOpts): Promise<RadarItem[]> {
-    return collectLinkedIn(opts); // SerpAPI branch added in Task A4
+    return process.env.SERP_API_KEY ? collectSerpApi(opts) : collectLinkedIn(opts);
   },
 };

@@ -32,3 +32,20 @@ test("opportunities adapter rejects when the fetcher throws", async () => {
     fetcher: async () => { throw new Error("429"); },
   })).rejects.toThrow();
 });
+
+test("opportunities adapter uses SerpAPI when SERP_API_KEY is set", async () => {
+  const prev = process.env.SERP_API_KEY; process.env.SERP_API_KEY = "k";
+  try {
+    const JSON_FIX = JSON.stringify({ jobs_results: [{
+      title: "Women's Health Data Scientist", company_name: "Acme",
+      location: "Remote", description: "Build models.",
+      detected_extensions: { posted_at: "2 days ago" },
+      apply_options: [{ link: "https://jobs.example/abc" }],
+    }]});
+    const items = await opportunitiesAdapter.collect({
+      since: new Date(0), limit: 10, now: new Date("2026-06-30T00:00:00Z"),
+      fetcher: async (url) => { expect(url).toContain("serpapi.com"); return JSON_FIX; },
+    });
+    expect(items[0]).toMatchObject({ section: "opportunities", source: "Google Jobs", url: "https://jobs.example/abc" });
+  } finally { if (prev === undefined) delete process.env.SERP_API_KEY; else process.env.SERP_API_KEY = prev; }
+});
