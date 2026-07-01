@@ -14,7 +14,7 @@ server.
 - **Default branch:** `master`
 - **Repository:** https://github.com/ChanMeng666/femtech-radar (public)
 - **Live site:** https://chanmeng666.github.io/femtech-radar/ · **RSS:** https://chanmeng666.github.io/femtech-radar/rss.xml · **Per-section RSS:** `/rss/<section>.xml` (e.g. `/rss/industry.xml`)
-- **npm package:** [`@chanmeng666/femtech-radar-mcp`](https://www.npmjs.com/package/@chanmeng666/femtech-radar-mcp) (v0.1.0)
+- **npm package:** [`@chanmeng666/femtech-radar-mcp`](https://www.npmjs.com/package/@chanmeng666/femtech-radar-mcp) (v0.3.0)
 
 **Status: all three units are built and live in production.** The pipeline runs end-to-end: the weekly
 workflow calls the published MCP server, curates a digest, opens a data PR, and the site auto-deploys.
@@ -77,6 +77,14 @@ Astro 5 static site. Reads the repo-root `data/*.json` **in place** via the cont
 Pure, unit-tested logic lives in `site/src/lib/` (`schema`, `weeks`, `strip-html`, `with-base`, `rss`,
 `sources`); `.astro` files are thin views. `.github/workflows/deploy-pages.yml` builds and deploys to
 GitHub Pages on `data/**` / `site/**` pushes to `master` (decoupled from the weekly workflow).
+
+**Design system & branding.** The site is rebranded to match the parent **FemTech Weekend** org
+(warm-brown "McKinsey editorial" style; light mode only). The **entire** design system is one vanilla
+CSS file — `site/src/styles/global.css` (`:root` tokens + component rules) — with the FemTech Weekend
+logo mark in the header/footer (`site/public/brand/femtech-weekend-logo.svg`) and a brand-brown favicon.
+No Tailwind, no dark mode. **[`docs/design-system.md`](docs/design-system.md) is the authoritative,
+current reference** (tokens, section colors, assets, and how to keep in sync with the parent brand) —
+read it before touching any visual styling, and update it alongside token changes.
 
 ## Repository Layout
 
@@ -163,6 +171,7 @@ gh aw run weekly-radar                                   # trigger a run (consum
 - **`summary` may contain raw HTML** (Google News items wrap the title in `<a>`/`<font>`); arXiv is plain text. Always render it through `stripHtml` (`site/src/lib/strip-html.ts`) — never `set:html`.
 - **Respect the Pages base path.** Deploy is at the project sub-path `/femtech-radar`. Every internal link/asset must go through `withBase()` (`site/src/lib/with-base.ts`) or it 404s on Pages; the RSS feed builds absolute URLs from Astro's `site` + `BASE_URL`.
 - **Keep logic in `site/src/lib/*.ts`** (unit-tested) and `.astro` files thin.
+- **All visual styling is in one file: `site/src/styles/global.css`** (brand tokens in `:root`). Follow the FemTech Weekend brand — see [`docs/design-system.md`](docs/design-system.md) — and keep that doc in sync. The `@fontsource/fraunces`/`inter` deps in `site/package.json` are **no longer imported** (the rebrand uses Georgia + the system stack); they're kept only so `pnpm install --frozen-lockfile` in CI stays green. Remove them only together with a lockfile update.
 
 ## Reading Order
 
@@ -170,8 +179,9 @@ When onboarding to this repo, read in this order:
 1. `README.md` — what the project is, how to run it, the live site
 2. This `AGENTS.md` — how to work in it (architecture, commands, gotchas)
 3. `docs/superpowers/specs/` — the full approved design (the three units in depth)
-4. `docs/superpowers/plans/` — the per-unit implementation plans (task-level detail)
-5. `CONTRIBUTING.md` — contribution workflow and quality gates
+4. `docs/superpowers/plans/` — the per-unit implementation plans (task-level detail; the visual CSS in the astro-site plan is point-in-time and superseded by the design-system doc)
+5. `docs/design-system.md` — the current visual identity / branding reference (Unit ③)
+6. `CONTRIBUTING.md` — contribution workflow and quality gates
 
 ## Conventions for Changes
 

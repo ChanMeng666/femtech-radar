@@ -8,13 +8,15 @@
 
 <div align="center"><a name="readme-top"></a>
 
-<!-- Optional hero image / logo:
-<img src="./.github/brand/your-logo.svg" alt="femtech-radar" width="120" />
--->
+<a href="https://femtech-weekend.com" target="_blank">
+  <img src="./.github/brand/femtech-weekend-logo.svg" alt="FemTech Weekend" width="200" />
+</a>
 
 # 🚀 femtech-radar
 
 ### FemTech intelligence as a GitHub-native, agent-driven pipeline
+
+<sub>A project of <a href="https://femtech-weekend.com"><strong>FemTech Weekend</strong></a> — the live site shares the org's brand identity.</sub>
 
 Agent-first FemTech intelligence: an MCP server that fetches, dedupes, and scores women's-health & FemTech research and industry news, designed to feed GitHub Agentic Workflows and an auto-updating Astro + RSS site.
 
@@ -68,7 +70,7 @@ It's built for **FemTech / women-in-tech practitioners** who want signal without
 
 ## ✨ Key Features
 
-`1` **One MCP tool, a whole radar** — `radar_collect` returns normalized, deduped, scored items per section. All four sections are live: **industry** (Google News), **research** (arXiv), **opportunities** (LinkedIn, with opt-in SerpAPI Google Jobs), and **discussions** (Hacker News).
+`1` **One MCP tool, a whole radar** — `radar_collect` returns normalized, deduped, scored items per section. All four sections are live: **industry** (Google News), **research** (arXiv), **opportunities** (LinkedIn, with opt-in SerpAPI Google Jobs), and **discussions** (Hacker News + Mastodon).
 
 `2` **Deterministic, testable core** — `fetch → normalize → dedupe → score`. The server makes no editorial judgment; that's left to the agent that drives it. 28 unit tests, and **zero real network calls in tests** (all I/O is injected).
 
@@ -90,6 +92,7 @@ It's built for **FemTech / women-in-tech practitioners** who want signal without
 - **Tooling:** pnpm workspaces (monorepo) · [Vitest](https://vitest.dev) (tests) · [tsup](https://tsup.egoist.dev) (build)
 - **Orchestration:** [GitHub Agentic Workflows (`gh aw`)](https://github.github.com/gh-aw/) · engine `copilot`, model `gpt-4.1` · weekly schedule → review-gated data PR
 - **Site:** [Astro 5](https://astro.build) (`femtech-radar-site`) · [`@astrojs/rss`](https://docs.astro.build/en/recipes/rss/) · GitHub Pages deploy via `deploy-pages.yml`
+- **Design:** vanilla CSS design system (`site/src/styles/global.css`) aligned to the **FemTech Weekend** brand — warm-brown editorial palette, Georgia serif + system sans, sharp corners, light mode only. Full reference: [`docs/design-system.md`](docs/design-system.md)
 - **Built on:** the `opportunities` adapter ports LinkedIn guest-endpoint logic from the owner's `linkedin-jobs-search` project (inspired by `linkedin-jobs-api`); the opt-in SerpAPI Google Jobs path is ported from `server-google-jobs`
 
 ## 🏗️ Architecture
@@ -180,7 +183,7 @@ femtech-radar is consumed as an **MCP server**. It exposes two tools:
 | `radar_collect` | `section` (`"industry"` \| `"research"` \| `"opportunities"` \| `"discussions"`), optional `since` (ISO date, default 7 days ago), optional `limit` (default 15) | `{ items: RadarItem[], warnings: string[] }` — deduped, scored, sorted, date-filtered |
 | `radar_sources` | _none_ | the configured source list per section |
 
-> All four sections are live. `industry` (Google News) and `research` (arXiv) require no API key. `opportunities` uses LinkedIn by default (opt-in SerpAPI Google Jobs when `SERP_API_KEY` is set). `discussions` uses Hacker News Algolia (free, no key). LinkedIn is best-effort — graceful degradation to `[]` applies if rate-limited.
+> All four sections are live. `industry` (Google News) and `research` (arXiv) require no API key. `opportunities` uses LinkedIn by default (opt-in SerpAPI Google Jobs when `SERP_API_KEY` is set). `discussions` merges Hacker News Algolia + Mastodon hashtag timelines (both free, no key). LinkedIn is best-effort — graceful degradation to `[]` applies if rate-limited.
 
 **Subscribe via RSS:** the weekly digest is published at [`https://chanmeng666.github.io/femtech-radar/rss.xml`](https://chanmeng666.github.io/femtech-radar/rss.xml) and works in any feed reader.
 
@@ -206,7 +209,7 @@ mcp-servers:
 }
 ```
 
-> `npx @chanmeng666/femtech-radar-mcp` works once the package is published to npm (v2). Until then, build locally and point your client at `dist/index.js` as shown above.
+> The package is published to npm, so `npx -y @chanmeng666/femtech-radar-mcp` works out of the box (current version `0.3.0`). The local `dist/index.js` path above is an alternative for development.
 
 See [`packages/mcp-server/README.md`](packages/mcp-server/README.md) for the full tool reference.
 
@@ -225,7 +228,7 @@ packages/mcp-server/src/
 ├── schema.ts          # Zod RadarItem / WeeklyData (the shared data contract)
 ├── dedup.ts           # URL canonicalization + title-similarity dedupe
 ├── score.ts           # relevance × popularity × freshness scoring
-├── adapters/          # one file per source (industry = Google News, research = arXiv, opportunities = LinkedIn/SerpAPI, discussions = HN)
+├── adapters/          # one file per source (industry = Google News, research = arXiv, opportunities = LinkedIn/SerpAPI, discussions = HN + Mastodon)
 ├── collect.ts         # orchestration: adapter → dedupe → score → sort → since-filter
 ├── tools.ts           # radar_collect / radar_sources handlers
 └── index.ts           # stdio MCP server entry

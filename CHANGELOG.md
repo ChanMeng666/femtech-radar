@@ -6,10 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 > **Note:** the npm package `@chanmeng666/femtech-radar-mcp` (Unit ①) is versioned independently and
-> is currently at `0.1.0`. Units ② (weekly workflow) and ③ (Astro site) ship via the repository on
+> is currently at `0.3.0`. Units ② (weekly workflow) and ③ (Astro site) ship via the repository on
 > GitHub Actions / Pages rather than a package version, and are tracked under _Unreleased_ until tagged.
 
 ## [Unreleased]
+
+### Changed — Unit ③: FemTech Weekend brand alignment (design system)
+- Rebranded the Astro site to match the parent **FemTech Weekend** brand (warm-brown "McKinsey
+  editorial" identity): brand palette (`#AA7C52`) + on-brand section colors, Georgia serif headings +
+  system sans body, zero border-radius, editorial callout for the `editor_note`, numbered uppercase
+  section eyebrows, and a cream footer. Light mode only.
+- Added the FemTech Weekend logo mark to the site header + footer
+  (`site/public/brand/femtech-weekend-logo.svg`) and recolored the favicon to brand brown; added the
+  brand lockup as the README hero (`.github/brand/femtech-weekend-logo.svg`).
+- Dropped the `@fontsource/fraunces`/`inter` imports (kept in `package.json` only for lockfile parity).
+- New authoritative reference: [`docs/design-system.md`](docs/design-system.md); AGENTS.md / README
+  synced to the current visual identity.
 
 ### Added — vNext: 4-section pipeline + site polish
 - `adapters/opportunities.ts` — LinkedIn Jobs adapter using the free guest endpoint (no API key; logic ported from the owner's `linkedin-jobs-search`). LinkedIn is best-effort — the guest endpoint may be rate-limited from CI; graceful degradation to `[]` applies. Opt-in SerpAPI Google Jobs path (ported from `server-google-jobs`) activates only when `SERP_API_KEY` env var is set; default remains LinkedIn.
