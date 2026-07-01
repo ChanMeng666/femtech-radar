@@ -1,5 +1,6 @@
 ---
 import type { RadarItemWithWhy, SectionKey } from '../lib/schema';
+import { SECTION_KEYS } from '../lib/schema';
 import RadarCard from './RadarCard.astro';
 
 interface Props { section: SectionKey; items: RadarItemWithWhy[]; }
@@ -12,12 +13,14 @@ const LABELS: Record<SectionKey, string> = {
   discussions: 'Discussions',
 };
 const color = `var(--${section})`;
+const num = String(SECTION_KEYS.indexOf(section) + 1).padStart(2, '0');
 ---
 <section class="section">
   <div class="section-head">
     <span class="section-dot" style={`background:${color}`}></span>
-    <h2 style={`color:${color}`}>{LABELS[section]}</h2>
+    <span class="section-label" style={`color:${color}`}>{num} · {LABELS[section]}</span>
   </div>
+  <h2 class="section-title" style={`color:${color}`}>{LABELS[section]}</h2>
   {items.length > 0 ? (
     <div class="cards">
       {items.map((item) => <RadarCard item={item} />)}

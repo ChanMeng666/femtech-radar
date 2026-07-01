@@ -1,8 +1,4 @@
 ---
-import '@fontsource/fraunces/400.css';
-import '@fontsource/fraunces/600.css';
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/600.css';
 import '../styles/global.css';
 import { withBase } from '../lib/with-base';
 import { SECTION_KEYS } from '../lib/schema';
@@ -29,7 +25,10 @@ const { title, description = 'A weekly, curated digest of FemTech industry news 
   <body>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href={withBase('/')}>FemTech Radar</a>
+        <a class="brand" href={withBase('/')}>
+          <img src={withBase('/brand/femtech-weekend-logo.svg')} alt="FemTech Weekend" width="26" height="26" />
+          <span class="brand-name">FemTech Radar</span>
+        </a>
         <nav class="nav">
           <a href={withBase('/')}>Latest</a>
           <a href={withBase('/archive')}>Archive</a>
@@ -43,7 +42,12 @@ const { title, description = 'A weekly, curated digest of FemTech industry news 
     </main>
     <footer class="site-footer">
       <div class="wrap">
-        <p>FemTech Radar — curated by an MCP &times; GitHub Agentic Workflow pipeline. Built by
+        <a class="footer-brand" href="https://femtech-weekend.com" target="_blank" rel="noopener noreferrer">
+          <img src={withBase('/brand/femtech-weekend-logo.svg')} alt="FemTech Weekend" width="30" height="30" />
+          <span>FemTech Weekend</span>
+        </a>
+        <p>FemTech Radar is part of <a href="https://femtech-weekend.com" target="_blank" rel="noopener noreferrer">FemTech Weekend</a> —
+          curated by an MCP &times; GitHub Agentic Workflow pipeline. Built by
           <a href="https://github.com/ChanMeng666">Chan Meng</a>.
           <a href={withBase('/rss.xml')}>Subscribe via RSS</a>.</p>
       </div>
