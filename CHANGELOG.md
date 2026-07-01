@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added — vNext: 4-section pipeline + site polish
 - `adapters/opportunities.ts` — LinkedIn Jobs adapter using the free guest endpoint (no API key; logic ported from the owner's `linkedin-jobs-search`). LinkedIn is best-effort — the guest endpoint may be rate-limited from CI; graceful degradation to `[]` applies. Opt-in SerpAPI Google Jobs path (ported from `server-google-jobs`) activates only when `SERP_API_KEY` env var is set; default remains LinkedIn.
-- `adapters/discussions.ts` — Hacker News Algolia search adapter (`hn.algolia.com/api/v1/search_by_date`), free, no API key required.
+- `adapters/discussions.ts` — merges two free, keyless sources: Hacker News Algolia (`hn.algolia.com`) and Mastodon public hashtag timelines (`mastodon.social`, tags `#femtech`/`#WomenInTech`/`#womenshealth`). Fixes the earlier HN query (Algolia has no boolean `OR`/phrase operators — now one query per term, merged and de-duped) which returned zero results. Per-source graceful degradation; adds `mastodon.social` to the workflow allowlist. Published as `@chanmeng666/femtech-radar-mcp@0.3.0`.
 - `adapters/gnews-url.ts` — decodes Google News redirect URLs to publisher URLs in the industry adapter; fallback-safe (returns original URL on any failure).
 - `adapters/utils.ts` — shared `hashId(url)` helper (SHA-256, first 16 hex chars) used by all adapters.
 - `adapters/types.ts` — `Fetcher` type extended with optional `init.headers` (needed by the LinkedIn adapter to send a browser User-Agent).
