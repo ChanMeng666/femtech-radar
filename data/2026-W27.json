@@ -1,7 +1,7 @@
 {
   "week": "2026-W27",
-  "generated_at": "2026-06-30T09:43:51+00:00",
-  "editor_note": "This week highlights the ongoing advocacy for women’s health research funding, the importance of community clinical trials, and the emergence of new AI tools for maternal and neonatal care. Opportunities in women’s health remain strong, though there were no notable public discussions this week.",
+  "generated_at": "2026-07-01T00:30:52Z",
+  "editor_note": "This week, the FemTech landscape highlights renewed advocacy for women's health research funding, the importance of community-driven clinical trials, and the ongoing need for workplace accommodations. Advances in maternal health AI and open benchmarks are pushing the boundaries of research and practical care. Discussions reflect on the impact of non-medical births, menstrual health, and the importance of ferritin awareness, underscoring the diversity and urgency of women's health topics.",
   "sections": {
     "industry": [
       {
@@ -108,6 +108,10 @@
         "why_it_matters": "Frontline roles like this are vital for patient experience and access in women’s health clinics."
       }
     ],
-    "discussions": []
+    "discussions": [
+      { "id": "a8ced8208f91a940", "section": "discussions", "title": "A US champion of ‘freebirthing’ always claimed there had been no maternal deaths linked to the movement. Is Stacey…", "url": "https://rssfeed.media/@guardianfeeds/116836584993999240", "source": "Mastodon", "summary": "@guardianfeeds@rssfeed.media on Mastodon · 0 favourites · 0 replies", "score": 56, "published_at": "2026-06-30T02:00:05.000Z", "why_it_matters": "Debates around non-medical births highlight the need for evidence-based guidance and safety in maternal care." },
+      { "id": "c8954827db4a105d", "section": "discussions", "title": "Menstrual Cycle Phase Alters Covid-19 Vaccine Outcomes", "url": "https://www.the-scientist.com/menstrual-cycle-phase-alters-covid-19-vaccine-outcomes-74685", "source": "Hacker News", "summary": "1 points · 0 comments on Hacker News", "published_at": "2026-06-29T14:37:42Z", "score": 39, "why_it_matters": "Understanding how menstrual cycles affect vaccine outcomes can inform more personalized and effective healthcare for women." },
+      { "id": "3c379c7e49db7044", "section": "discussions", "title": "What is Ferritin and Why Is It Important For Women? https://www. vogue.com/article/what-is-ferr…", "url": "https://flipboard.social/@fediboard_lifestyle/116837015950526970", "source": "Mastodon", "summary": "@fediboard_lifestyle@flipboard.social on Mastodon · 0 favourites · 0 replies", "score": 39, "published_at": "2026-06-30T03:49:41.000Z", "why_it_matters": "Raising awareness of ferritin deficiency addresses a common but often overlooked factor in women's health and well-being." }
+    ]
   }
 }
