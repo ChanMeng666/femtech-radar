@@ -1,6 +1,6 @@
 {
   "name": "@chanmeng666/femtech-radar-mcp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "MCP server that fetches, dedupes, and scores FemTech industry & research items.",
   "keywords": [
     "mcp",

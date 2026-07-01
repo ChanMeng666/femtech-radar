@@ -19,13 +19,15 @@ test("collect dedupes and returns items sorted by score", async () => {
   expect(warnings).toEqual([]);
 });
 
-test("collect surfaces a warning when the discussions adapter receives invalid JSON", async () => {
+test("collect returns empty with NO warning when the resilient discussions sources fail", async () => {
+  // The discussions adapter (HN + Mastodon) catches per-source internally, so a
+  // failing source degrades to [] rather than throwing out — collect() sees no error.
   const { items, warnings } = await collect({
     section: "discussions", since: new Date("2026-06-01T00:00:00Z"),
     limit: 10, now: new Date("2026-06-30T00:00:00Z"), fetcher: async () => "",
   });
   expect(items).toEqual([]);
-  expect(warnings[0]).toMatch(/discussions adapter failed/);
+  expect(warnings).toEqual([]);
 });
 
 test("collect surfaces a warning (and empty items) when the source fails", async () => {

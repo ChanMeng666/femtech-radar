@@ -18,6 +18,7 @@ network:
     - www.linkedin.com
     - hn.algolia.com
     - serpapi.com
+    - mastodon.social
 mcp-servers:
   femtech-radar:
     command: npx

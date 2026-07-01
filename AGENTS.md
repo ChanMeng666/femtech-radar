@@ -45,7 +45,7 @@ Directory map (`packages/mcp-server/src/`):
 - `adapters/types.ts` — the `Adapter`, `Fetcher`, `CollectOpts` contract. **All network I/O goes through the injected `Fetcher`** so adapters are unit-testable. `Fetcher` accepts optional `init.headers` (needed by the LinkedIn adapter to pass a browser User-Agent).
 - `adapters/research.ts` (arXiv), `adapters/industry.ts` (Google News) — one file per source; each returns `RadarItem[]`.
 - `adapters/opportunities.ts` — default: LinkedIn Jobs free guest endpoint, logic ported from the owner's `linkedin-jobs-search`; opt-in: SerpAPI Google Jobs (`serpapi.com`), active only when `process.env.SERP_API_KEY` is set.
-- `adapters/discussions.ts` — Hacker News Algolia search API (`hn.algolia.com/api/v1/search_by_date`), free, no API key required.
+- `adapters/discussions.ts` — merges two free, keyless sources: Hacker News Algolia (`hn.algolia.com`; one query per term — Algolia has no boolean `OR`) and Mastodon public hashtag timelines (`mastodon.social/api/v1/timelines/tag/<tag>`). Per-source try/catch: one dead source degrades to `[]` and never zeroes the section (so this adapter does not throw out of `collect()`).
 - `adapters/gnews-url.ts` — decodes Google News redirect URLs to publisher URLs; used by `industry.ts`; fallback-safe (returns the original URL on any failure).
 - `adapters/utils.ts` — shared `hashId(url)` (SHA-256, first 16 hex chars) used by all adapters.
 - `dedup.ts` — `canonicalUrl` (strips tracking params, guards malformed URLs) + title-Jaccard dedupe, higher-score-wins.
@@ -59,8 +59,8 @@ A [GitHub Agentic Workflow (`gh aw`)](https://github.github.com/gh-aw/). **Engin
 Each Monday it launches the published MCP via `npx`, calls `radar_collect` for all four sections
 (`industry`, `research`, `opportunities`, `discussions`), and the Copilot agent curates the results:
 picks top items, writes a one-sentence `why_it_matters` per item, writes the weekly `editor_note`, then
-emits two `safe-outputs`. `network.allowed` includes `www.linkedin.com`, `hn.algolia.com`, and
-`serpapi.com` in addition to the arXiv / Google News defaults.
+emits two `safe-outputs`. `network.allowed` includes `www.linkedin.com`, `hn.algolia.com`,
+`serpapi.com`, and `mastodon.social` in addition to the arXiv / Google News defaults.
 1. `create-pull-request` → writes `data/YYYY-Www.json` (the site's single source of truth).
 2. `create-issue` → a human-readable Markdown digest (notification + discussion thread).
 
@@ -101,7 +101,7 @@ femtech-radar/
 `RadarItem`: `{ id, section, title, url, source, summary, score(0–100), published_at, raw_metrics? }`.
 Unit ② additionally writes a `why_it_matters` string on each item (the editorial payload). All four
 sections are live: `opportunities` uses LinkedIn (default) or SerpAPI Google Jobs (opt-in via
-`SERP_API_KEY`); `discussions` uses Hacker News Algolia.
+`SERP_API_KEY`); `discussions` merges Hacker News Algolia + Mastodon hashtag timelines.
 
 ## Commands
 
